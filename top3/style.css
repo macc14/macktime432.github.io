@@ -10,3 +10,33 @@ html {
   margin-right: auto;
   width: 50%;
 }
+    h1 {
+      text-align: center;
+      font-size: 50px;
+      color: lightgray;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 40px;
+      color: brown
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 25px;
+      color: #3EB489;
+    }
+
+    p {
+      text-align: center;
+      font-size: 24px;
+      color: lightblue;
+    }
+
+    div {
+      text-align: center;
+    }
+body {
+background-color: #967bb6;
+}
