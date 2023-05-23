@@ -1,11 +1,47 @@
 html {
   height: 100%;
   width: 100%;
- 
+
+
 }
+
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+body {
+
+  background-color: lavender;
+
+}
+
+h1 {
+
+  background-color: lightseagreen;
+  border-style: solid;
+  outline-color: darkseagreen;
+  outline-width: 2px;
+}
+
+th {
+  font-size: 20px;
+  color: darkgray;
+
+}
+
+table {
+
+  border-style: solid;
+  border-color: lavenderblush;
+
+}
+
+tr {
+
+border-style: solid;
+  border-color: rebeccapurple;
+  
 }
