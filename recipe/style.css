@@ -39,9 +39,10 @@ table {
 
 }
 
-tr {
+td {
 
-border-style: solid;
+border-top-style: solid;
+  border-bottom-style: solid;
   border-color: rebeccapurple;
   
 }
@@ -50,7 +51,12 @@ ol {
   border-style: solid;
 }
 ol {list-style: none; counter-reset: li}
-li::before {content: counter(li); color: red;
-  display: inline-block; width: 1em;
+li::before {content: counter(li); background-color: seashell;
+  display: inline-block; width: 1em; 
   margin-left: -1em}
 li {counter-increment: li}
+
+tr.border-bottom td {
+        border-bottom: 1pt solid #ff000d;
+}
+li {background-color:aliceblue;}
