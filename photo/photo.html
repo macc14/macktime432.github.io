@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mack's gallery</title>
+  <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>">
+  <style>
+    :root {
+      --bg-color: #fafafa;
+      --text-color: #333;
+      --header-bg: #fff;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #fafafa;
+      --header-bg: #1e1e1e;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background-color: var(--header-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .now-playing {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .now-playing-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      display: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 100;
+    }
+
+    .now-playing-img:hover {
+      transform: scale(3) translateY(20px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .now-playing-tooltip {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1001;
+    }
+
+    .now-playing:hover .now-playing-tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .menu-toggle {
+      font-size: 2rem;
+      cursor: pointer;
+      user-select: none;
+      padding: 0.5rem;
+    }
+
+    .menu {
+      display: none;
+      flex-direction: column;
+      background-color: var(--header-bg);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      border-top: 1px solid #ddd;
+    }
+
+    .menu a {
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text-color);
+      border-bottom: 1px solid #ddd;
+    }
+
+    .menu a:last-child {
+      border-bottom: none;
+    }
+
+    .menu.show {
+      display: flex;
+    }
+
+    .toggle-btn {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border: none;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .gallery-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(250px, 1fr));
+      grid-auto-rows: minmax(0, auto);
+      gap: 1.5rem;
+      justify-content: center;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    @media (orientation: portrait) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(250px, 1fr));
+      }
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .lightbox.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+    }
+
+    .caption {
+  margin-top: 1rem;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;  /* Increased size */
+  max-width: 90%;
+  word-wrap: break-word;
+  background-color: rgba(0, 0, 0, 0.6); /* Optional: subtle background for readability */
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .prev-btn {
+      left: 20px;
+    }
+
+    .next-btn {
+      right: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+    <div class="header-content">
+      <span>mack's gallery . :)</span>
+      <div class="now-playing">
+        <img class="now-playing-img" id="nowPlayingImg" alt="Now Playing">
+        <div class="now-playing-tooltip" id="nowPlayingTooltip"></div>
+      </div>
+    </div>
+    <button class="toggle-btn" id="modeToggle">Light/Dark</button>
+  </header>
+
+  <div class="menu" id="menu">
+    <a href="#">Home</a>
+    <a href="#">Gallery</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <div class="gallery-container">
+    <div class="gallery" id="gallery">
+      <img src="photo1.JPG" alt="Photo 1">
+      <img src="photo2.JPG" alt="Photo 2">
+      <img src="photo3.JPG" alt="Photo 3">
+      <img src="photo4.JPG" alt="Photo 4">
+      <img src="photo6.JPG" alt="Photo 5">
+      <img src="photo5.JPG" alt="Photo 6">
+      <img src="https://via.placeholder.com/606" alt="soon . ">
+      <img src="photo8.jpeg" alt="soon">
+      <img src="https://via.placeholder.com/608" alt=":)">
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
+      <img src="" alt="Enlarged Photo" id="lightboxImage">
+      <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
+      <button class="close-btn" id="closeBtn">&#10005;</button>
+    </div>
+    <div class="caption" id="caption"></div>
+  </div>
+
+  <script>
+    // Now Playing Fetch
+    const LAST_FM_API_KEY = 'd1beb278f4fc1f2ac27636a790ecc0ef';
+    const LAST_FM_USERNAME = 'macc14';
+
+    async function fetchNowPlaying() {
+      try {
+        const response = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LAST_FM_USERNAME}&api_key=${LAST_FM_API_KEY}&format=json&limit=1`);
+        if (!response.ok) throw new Error('Failed to fetch data');
+        const data = await response.json();
+        const track = data.recenttracks.track[0];
+        if (!track) return;
+
+        const trackInfo = {
+          name: track.name,
+          artist: track.artist['#text'],
+          album: track.album['#text'],
+          image: track.image[track.image.length - 1]['#text']
+        };
+
+        if (trackInfo.image) {
+          document.getElementById('favicon').href = trackInfo.image;
+          const nowPlayingImg = document.getElementById('nowPlayingImg');
+          nowPlayingImg.src = trackInfo.image;
+          nowPlayingImg.style.display = 'block';
+          document.getElementById('nowPlayingTooltip').textContent = `${trackInfo.name} - ${trackInfo.artist}`;
+        }
+      } catch (error) {
+        console.error('Error fetching Last.fm data:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchNowPlaying);
+    setInterval(fetchNowPlaying, 30000);
+
+    // Lightbox functionality
+    const gallery = document.getElementById('gallery');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const caption = document.getElementById('caption');
+    const images = Array.from(gallery.querySelectorAll('img'));
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const nowPlayingImg = document.getElementById('nowPlayingImg');
+
+    let currentIndex = -1;
+
+    function showImage() {
+      const img = images[currentIndex];
+      lightboxImage.src = img.src;
+      caption.textContent = img.alt;
+      lightbox.classList.add('active');
+    }
+
+    function hideLightbox() {
+      lightbox.classList.remove('active');
+      caption.textContent = '';
+      currentIndex = -1;
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage();
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage();
+    }
+
+    gallery.addEventListener('click', function (e) {
+      const clickedImg = e.target.closest('img');
+      if (clickedImg && clickedImg !== nowPlayingImg) {
+        currentIndex = images.indexOf(clickedImg);
+        if (currentIndex !== -1) {
+          showImage();
+        }
+      }
+    });
+
+    nextBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      showNext();
+    });
+
+    prevBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      showPrev();
+    });
+
+    closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      hideLightbox();
+    });
+
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) {
+        hideLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') hideLightbox();
+        else if (e.key === 'ArrowRight') showNext();
+        else if (e.key === 'ArrowLeft') showPrev();
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    lightbox.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) showNext();
+      if (touchEndX > touchStartX + 50) showPrev();
+    });
+
+    const modeToggle = document.getElementById('modeToggle');
+    const currentMode = localStorage.getItem('theme');
+
+    if (currentMode === 'dark') document.body.classList.add('dark');
+
+    modeToggle.addEventListener('click', function () {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+
+    menuToggle.addEventListener('click', function () {
+      menu.classList.toggle('show');
+    });
+  </script>
+
+</body>
+
+</html>
