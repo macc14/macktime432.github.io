@@ -208,15 +208,15 @@
 
     @media (max-width: 768px) {
       .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
       }
     }
 
     @media (max-width: 480px) {
       .gallery {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.25rem;
       }
     }
 
@@ -849,49 +849,65 @@
       }
     });
 
-    // Mobile: Show date overlay on tap (toggle on/off)
+    // Mobile: Show date overlay on long press (not tap to avoid scroll issues)
     let activeDateOverlay = null;
+    let touchTimer = null;
+    let hasMoved = false;
     
     gallery.addEventListener('touchstart', function(e) {
       const galleryItem = e.target.closest('.gallery-item');
       if (galleryItem && e.target.tagName === 'IMG') {
-        // Prevent default to avoid double-tap zoom
-        e.preventDefault();
+        hasMoved = false;
         
-        // Remove active state from previous item
-        if (activeDateOverlay && activeDateOverlay !== galleryItem) {
-          activeDateOverlay.classList.remove('show-date');
-        }
-        
-        // Toggle current item
-        if (galleryItem.classList.contains('show-date')) {
-          galleryItem.classList.remove('show-date');
-          activeDateOverlay = null;
-        } else {
-          galleryItem.classList.add('show-date');
-          activeDateOverlay = galleryItem;
-          
-          // Auto-hide after 3 seconds
-          setTimeout(() => {
-            if (activeDateOverlay === galleryItem) {
-              galleryItem.classList.remove('show-date');
-              activeDateOverlay = null;
+        // Long press to show date (500ms)
+        touchTimer = setTimeout(() => {
+          if (!hasMoved) {
+            // Remove active state from previous item
+            if (activeDateOverlay && activeDateOverlay !== galleryItem) {
+              activeDateOverlay.classList.remove('show-date');
             }
-          }, 3000);
-        }
+            
+            galleryItem.classList.add('show-date');
+            activeDateOverlay = galleryItem;
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+              if (activeDateOverlay === galleryItem) {
+                galleryItem.classList.remove('show-date');
+                activeDateOverlay = null;
+              }
+            }, 3000);
+          }
+        }, 500);
+      }
+    });
+    
+    gallery.addEventListener('touchmove', function(e) {
+      hasMoved = true;
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+      }
+    });
+    
+    gallery.addEventListener('touchend', function(e) {
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
       }
     });
 
     // Remove overlay when scrolling
     let scrollTimeout;
     gallery.parentElement.addEventListener('scroll', function() {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        if (activeDateOverlay) {
-          activeDateOverlay.classList.remove('show-date');
-          activeDateOverlay = null;
-        }
-      }, 100);
+      if (activeDateOverlay) {
+        activeDateOverlay.classList.remove('show-date');
+        activeDateOverlay = null;
+      }
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+      }
     });
   </script>
 
