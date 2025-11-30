@@ -4,9 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="preconnect" href="https://ws.audioscrobbler.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <title>mack's gallery</title>
   <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>">
-  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exif-js" async></script>
   <style>
     :root {
       --bg-color: #fafafa;
@@ -196,6 +199,12 @@
       padding: 1rem;
     }
 
+    @media (max-width: 768px) {
+      .gallery-container {
+        padding: 0.25rem;
+      }
+    }
+
     .gallery {
       display: grid;
       grid-template-columns: repeat(3, minmax(250px, 1fr));
@@ -208,15 +217,17 @@
 
     @media (max-width: 768px) {
       .gallery {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
+        padding: 0;
       }
     }
 
     @media (max-width: 480px) {
       .gallery {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.25rem;
+        padding: 0;
       }
     }
 
@@ -232,6 +243,8 @@
       border-radius: 8px;
       transition: transform 0.3s;
       position: relative;
+      will-change: transform;
+      content-visibility: auto;
     }
 
     .gallery img:hover {
@@ -495,15 +508,27 @@
         return dd;
       }
 
-      // Load all photos with promises
+      // Load all photos with promises (optimized)
       const promises = photoFiles.map(filename => {
         return new Promise((resolve) => {
           const img = new Image();
           img.src = filename;
           
+          const timeout = setTimeout(() => {
+            resolve({
+              filename: filename,
+              date: new Date(0),
+              exifDate: null,
+              formattedDate: null,
+              gpsCoords: null
+            });
+          }, 5000); // 5 second timeout for slow loading images
+          
           img.onload = function() {
+            clearTimeout(timeout);
             // Try to get EXIF date
-            EXIF.getData(img, function() {
+            if (typeof EXIF !== 'undefined') {
+              EXIF.getData(img, function() {
               const dateTimeOriginal = EXIF.getTag(this, 'DateTimeOriginal');
               const dateTimeDigitized = EXIF.getTag(this, 'DateTimeDigitized');
               const dateTime = EXIF.getTag(this, 'DateTime');
@@ -570,9 +595,20 @@
                 gpsCoords: gpsCoords
               });
             });
+            } else {
+              // EXIF library not loaded yet, resolve without metadata
+              resolve({
+                filename: filename,
+                date: new Date(0),
+                exifDate: null,
+                formattedDate: null,
+                gpsCoords: null
+              });
+            }
           };
           
           img.onerror = function() {
+            clearTimeout(timeout);
             resolve({
               filename: filename,
               date: new Date(0),
@@ -597,6 +633,8 @@
         
         const imgElement = document.createElement('img');
         imgElement.src = photo.filename;
+        imgElement.loading = 'lazy'; // Native lazy loading
+        imgElement.decoding = 'async'; // Async image decoding
         
         // Build alt text with date and location
         let altText = photo.formattedDate ? photo.formattedDate : `Photo ${index + 1}`;
@@ -687,7 +725,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', fetchNowPlaying);
-    setInterval(fetchNowPlaying, 30000);
+    setInterval(fetchNowPlaying, 60000); // Reduced frequency to 60 seconds to reduce API calls
 
     // Add click handler for album art to open Spotify
     document.getElementById('nowPlayingImg').addEventListener('click', function(e) {
