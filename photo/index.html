@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>mack's gallery</title>
   <link rel="icon" id="favicon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
   <style>
     :root {
       --bg-color: #fafafa;
@@ -21,7 +22,8 @@
 
     body {
       margin: 0;
-      font-family: sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: bold;
       background-color: var(--bg-color);
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
@@ -40,6 +42,13 @@
       justify-content: space-between;
       align-items: center;
       position: relative;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        font-size: 1.5rem;
+        padding: 0.75rem;
+      }
     }
 
     .header-content {
@@ -103,21 +112,36 @@
     }
 
     .menu {
-      display: none;
+      display: flex;
       flex-direction: column;
       background-color: var(--header-bg);
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      border-top: 1px solid #ddd;
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      border-right: 2px solid #ddd;
+      transition: left 0.3s ease;
+      z-index: 2000;
+      padding-top: 4rem;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .menu a {
-      padding: 1rem;
+      padding: 1.5rem 2rem;
       text-decoration: none;
       color: var(--text-color);
       border-bottom: 1px solid #ddd;
+      font-size: 1.2rem;
+      transition: background-color 0.2s;
+    }
+
+    .menu a:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     .menu a:last-child {
@@ -125,7 +149,25 @@
     }
 
     .menu.show {
-      display: flex;
+      left: 0;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1999;
+    }
+
+    .menu-overlay.show {
+      opacity: 1;
+      visibility: visible;
     }
 
     .toggle-btn {
@@ -136,6 +178,13 @@
       background-color: #333;
       color: white;
       border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .toggle-btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.75rem;
+      }
     }
 
     .gallery-container {
@@ -157,10 +206,22 @@
       width: 100%;
     }
 
-    @media (orientation: portrait) {
+    @media (max-width: 768px) {
       .gallery {
-        grid-template-columns: repeat(2, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
       }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+    }
+
+    .gallery {
+      position: relative;
     }
 
     .gallery img {
@@ -170,10 +231,63 @@
       cursor: pointer;
       border-radius: 8px;
       transition: transform 0.3s;
+      position: relative;
     }
 
     .gallery img:hover {
       transform: scale(1.02);
+    }
+
+    .photo-tooltip {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photo-tooltip.show {
+      opacity: 1;
+    }
+
+    /* Mobile: show date overlay on tap/touch */
+    .photo-date-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+      color: white;
+      padding: 8px;
+      font-size: 0.75rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      border-radius: 0 0 8px 8px;
+      white-space: pre-line;
+      line-height: 1.4;
+    }
+
+    .gallery-item {
+      position: relative;
+    }
+
+    .gallery-item.show-date .photo-date-overlay {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .photo-date-overlay {
+        font-size: 0.7rem;
+        padding: 6px;
+      }
     }
 
     .lightbox {
@@ -215,16 +329,31 @@
     }
 
     .caption {
-  margin-top: 1rem;
-  color: white;
-  text-align: center;
-  font-size: 1.5rem;  /* Increased size */
-  max-width: 90%;
-  word-wrap: break-word;
-  background-color: rgba(0, 0, 0, 0.6); /* Optional: subtle background for readability */
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-}
+      margin-top: 1rem;
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      max-width: 90%;
+      word-wrap: break-word;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .caption {
+        font-size: 1rem;
+        padding: 0.4rem 0.75rem;
+        max-width: 95%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .caption {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.5rem;
+      }
+    }
 
 
     .nav-btn {
@@ -244,6 +373,15 @@
       justify-content: center;
       transition: background 0.3s;
       z-index: 10;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
     }
 
     .nav-btn:hover {
@@ -285,6 +423,8 @@
 
 <body>
 
+  <div class="menu-overlay" id="menuOverlay"></div>
+
   <header>
     <div class="menu-toggle" id="menuToggle">&#9776;</div>
     <div class="header-content">
@@ -298,28 +438,12 @@
   </header>
 
   <div class="menu" id="menu">
-    <a href="#">Home</a>
-    <a href="#">Gallery</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="/">Home</a>
   </div>
 
   <div class="gallery-container">
     <div class="gallery" id="gallery">
-      <img src="photo15.JPG" alt="Photo 1">
-      <img src="IMG_1827.jpeg" alt="Photo 2">
-      <img src="IMG_1705.JPG" alt="Photo 3">
-      <img src="IMG_1362.JPG" alt="Photo 4">
-      <img src="" alt="Photo 5">
-      <img src="IMG_1487.JPG" alt="Photo 6">
-      <img src="trip18.jpg" alt="soon . ">
-      <img src="trip35.jpg" alt=":)">
-      <img src="nycday1_13.jpg" alt=":)">
-      <img src="IMG_1684.JPG" alt=":)">
-      <img src="nycday1_11.jpg" alt=":)">
-      <img src="IMG_0616.JPG" alt=":)">
-      <img src="IMG_0732.JPG" alt=":)">
-      <img src="photo13.jpeg" alt=":)">
+      <!-- Photos will be loaded dynamically -->
     </div>
   </div>
 
@@ -334,9 +458,189 @@
   </div>
 
   <script>
+    // Fetch list of all images from photos.json
+    async function getPhotoFiles() {
+      try {
+        const response = await fetch('photos.json');
+        if (!response.ok) {
+          console.error('Could not load photos.json');
+          return [];
+        }
+        const photoFiles = await response.json();
+        return photoFiles;
+      } catch (error) {
+        console.error('Error fetching photo list:', error);
+        return [];
+      }
+    }
+
+    // Load photos and extract EXIF data to sort by date taken
+    async function loadPhotos() {
+      const photoFiles = await getPhotoFiles();
+      
+      if (photoFiles.length === 0) {
+        console.warn('No photos found in directory');
+        return;
+      }
+      
+      const gallery = document.getElementById('gallery');
+      const photosWithDates = [];
+
+      // Helper function to convert GPS coordinates from DMS to decimal degrees
+      function convertDMSToDD(degrees, minutes, seconds, direction) {
+        let dd = degrees + minutes / 60 + seconds / 3600;
+        if (direction === 'S' || direction === 'W') {
+          dd = dd * -1;
+        }
+        return dd;
+      }
+
+      // Load all photos with promises
+      const promises = photoFiles.map(filename => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = filename;
+          
+          img.onload = function() {
+            // Try to get EXIF date
+            EXIF.getData(img, function() {
+              const dateTimeOriginal = EXIF.getTag(this, 'DateTimeOriginal');
+              const dateTimeDigitized = EXIF.getTag(this, 'DateTimeDigitized');
+              const dateTime = EXIF.getTag(this, 'DateTime');
+              
+              // Get GPS data
+              const gpsLat = EXIF.getTag(this, 'GPSLatitude');
+              const gpsLatRef = EXIF.getTag(this, 'GPSLatitudeRef');
+              const gpsLon = EXIF.getTag(this, 'GPSLongitude');
+              const gpsLonRef = EXIF.getTag(this, 'GPSLongitudeRef');
+              
+              let date;
+              let formattedDate = null;
+              let gpsCoords = null;
+              
+              // Parse EXIF date format: "YYYY:MM:DD HH:MM:SS"
+              const exifDate = dateTimeOriginal || dateTimeDigitized || dateTime;
+              if (exifDate) {
+                const parts = exifDate.split(' ');
+                const dateParts = parts[0].split(':');
+                const timeParts = parts[1].split(':');
+                date = new Date(
+                  parseInt(dateParts[0]), 
+                  parseInt(dateParts[1]) - 1, 
+                  parseInt(dateParts[2]),
+                  parseInt(timeParts[0]),
+                  parseInt(timeParts[1]),
+                  parseInt(timeParts[2])
+                );
+                
+                // Format date as "October 31, 2025 at 6:23:57 PM"
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+                const month = monthNames[date.getMonth()];
+                const day = date.getDate();
+                const year = date.getFullYear();
+                let hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const seconds = String(date.getSeconds()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                formattedDate = `${month} ${day}, ${year} at ${hours}:${minutes}:${seconds} ${ampm}`;
+              } else {
+                // Fallback to current date if no EXIF
+                date = new Date(0);
+              }
+              
+              // Convert GPS coordinates to decimal format
+              if (gpsLat && gpsLon && gpsLatRef && gpsLonRef) {
+                const latDecimal = convertDMSToDD(gpsLat[0], gpsLat[1], gpsLat[2], gpsLatRef);
+                const lonDecimal = convertDMSToDD(gpsLon[0], gpsLon[1], gpsLon[2], gpsLonRef);
+                gpsCoords = {
+                  lat: latDecimal,
+                  lon: lonDecimal,
+                  formatted: `${latDecimal.toFixed(6)}, ${lonDecimal.toFixed(6)}`
+                };
+              }
+              
+              resolve({
+                filename: filename,
+                date: date,
+                exifDate: exifDate,
+                formattedDate: formattedDate,
+                gpsCoords: gpsCoords
+              });
+            });
+          };
+          
+          img.onerror = function() {
+            resolve({
+              filename: filename,
+              date: new Date(0),
+              exifDate: null,
+              formattedDate: null,
+              gpsCoords: null
+            });
+          };
+        });
+      });
+
+      // Wait for all photos to load
+      const results = await Promise.all(promises);
+      
+      // Sort by date (newest first)
+      results.sort((a, b) => b.date - a.date);
+
+      // Add sorted images to gallery
+      results.forEach((photo, index) => {
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        
+        const imgElement = document.createElement('img');
+        imgElement.src = photo.filename;
+        
+        // Build alt text with date and location
+        let altText = photo.formattedDate ? photo.formattedDate : `Photo ${index + 1}`;
+        if (photo.gpsCoords) {
+          altText += ` | Location: ${photo.gpsCoords.formatted}`;
+        }
+        imgElement.alt = altText;
+        
+        // Store data attributes
+        imgElement.dataset.exifDate = photo.formattedDate || 'Date not available';
+        if (photo.gpsCoords) {
+          imgElement.dataset.gpsCoords = photo.gpsCoords.formatted;
+          imgElement.dataset.gpsLat = photo.gpsCoords.lat;
+          imgElement.dataset.gpsLon = photo.gpsCoords.lon;
+        }
+        
+        const dateOverlay = document.createElement('div');
+        dateOverlay.className = 'photo-date-overlay';
+        let overlayText = photo.formattedDate || 'Date not available';
+        if (photo.gpsCoords) {
+          overlayText += `\n📍 ${photo.gpsCoords.formatted}`;
+        }
+        dateOverlay.textContent = overlayText;
+        
+        galleryItem.appendChild(imgElement);
+        galleryItem.appendChild(dateOverlay);
+        gallery.appendChild(galleryItem);
+      });
+
+      // Update images array for lightbox
+      images.length = 0;
+      images.push(...gallery.querySelectorAll('img'));
+    }
+
+    // Load photos on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPhotos();
+      fetchNowPlaying();
+    });
+
     // Now Playing Fetch
     const LAST_FM_API_KEY = 'd1beb278f4fc1f2ac27636a790ecc0ef';
     const LAST_FM_USERNAME = 'macc14';
+    let currentSpotifyUrl = null;
 
     async function fetchNowPlaying() {
       try {
@@ -360,6 +664,23 @@
           nowPlayingImg.style.display = 'block';
           document.getElementById('nowPlayingTooltip').textContent = `${trackInfo.name} - ${trackInfo.artist}`;
         }
+
+        // Fetch Spotify URL using Last.fm track.getInfo
+        try {
+          const trackInfoResponse = await fetch(`https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${LAST_FM_API_KEY}&artist=${encodeURIComponent(trackInfo.artist)}&track=${encodeURIComponent(trackInfo.name)}&format=json`);
+          if (trackInfoResponse.ok) {
+            const trackData = await trackInfoResponse.json();
+            if (trackData.track && trackData.track.url) {
+              // Try to get Spotify link from track data or construct search URL
+              const spotifySearchUrl = `https://open.spotify.com/search/${encodeURIComponent(trackInfo.artist + ' ' + trackInfo.name)}`;
+              currentSpotifyUrl = spotifySearchUrl;
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching Spotify link:', error);
+          // Fallback to Spotify search
+          currentSpotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(trackInfo.artist + ' ' + trackInfo.name)}`;
+        }
       } catch (error) {
         console.error('Error fetching Last.fm data:', error);
       }
@@ -368,12 +689,20 @@
     document.addEventListener('DOMContentLoaded', fetchNowPlaying);
     setInterval(fetchNowPlaying, 30000);
 
+    // Add click handler for album art to open Spotify
+    document.getElementById('nowPlayingImg').addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (currentSpotifyUrl) {
+        window.open(currentSpotifyUrl, '_blank');
+      }
+    });
+
     // Lightbox functionality
     const gallery = document.getElementById('gallery');
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
     const caption = document.getElementById('caption');
-    const images = Array.from(gallery.querySelectorAll('img'));
+    const images = []; // Will be populated after photos load
     const nextBtn = document.getElementById('nextBtn');
     const prevBtn = document.getElementById('prevBtn');
     const closeBtn = document.getElementById('closeBtn');
@@ -382,6 +711,7 @@
     let currentIndex = -1;
 
     function showImage() {
+      if (images.length === 0) return;
       const img = images[currentIndex];
       lightboxImage.src = img.src;
       caption.textContent = img.alt;
@@ -395,18 +725,22 @@
     }
 
     function showNext() {
+      if (images.length === 0) return;
       currentIndex = (currentIndex + 1) % images.length;
       showImage();
     }
 
     function showPrev() {
+      if (images.length === 0) return;
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       showImage();
     }
 
     gallery.addEventListener('click', function (e) {
       const clickedImg = e.target.closest('img');
-      if (clickedImg && clickedImg !== nowPlayingImg) {
+      const galleryItem = e.target.closest('.gallery-item');
+      
+      if (clickedImg && clickedImg !== nowPlayingImg && galleryItem) {
         currentIndex = images.indexOf(clickedImg);
         if (currentIndex !== -1) {
           showImage();
@@ -468,9 +802,96 @@
 
     const menuToggle = document.getElementById('menuToggle');
     const menu = document.getElementById('menu');
+    const menuOverlay = document.getElementById('menuOverlay');
 
     menuToggle.addEventListener('click', function () {
       menu.classList.toggle('show');
+      menuOverlay.classList.toggle('show');
+    });
+
+    // Close menu when clicking overlay
+    menuOverlay.addEventListener('click', function () {
+      menu.classList.remove('show');
+      menuOverlay.classList.remove('show');
+    });
+
+    // Close menu when clicking a link
+    menu.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        menu.classList.remove('show');
+        menuOverlay.classList.remove('show');
+      }
+    });
+
+    // Photo hover tooltip (desktop)
+    const tooltip = document.createElement('div');
+    tooltip.className = 'photo-tooltip';
+    document.body.appendChild(tooltip);
+
+    gallery.addEventListener('mouseover', function(e) {
+      if (e.target.tagName === 'IMG' && e.target.closest('.gallery-item') && e.target !== nowPlayingImg) {
+        const exifDate = e.target.dataset.exifDate;
+        tooltip.textContent = exifDate;
+        tooltip.classList.add('show');
+      }
+    });
+
+    gallery.addEventListener('mousemove', function(e) {
+      if (e.target.tagName === 'IMG' && e.target.closest('.gallery-item') && e.target !== nowPlayingImg) {
+        tooltip.style.left = e.pageX + 15 + 'px';
+        tooltip.style.top = e.pageY + 15 + 'px';
+      }
+    });
+
+    gallery.addEventListener('mouseout', function(e) {
+      if (e.target.tagName === 'IMG') {
+        tooltip.classList.remove('show');
+      }
+    });
+
+    // Mobile: Show date overlay on tap (toggle on/off)
+    let activeDateOverlay = null;
+    
+    gallery.addEventListener('touchstart', function(e) {
+      const galleryItem = e.target.closest('.gallery-item');
+      if (galleryItem && e.target.tagName === 'IMG') {
+        // Prevent default to avoid double-tap zoom
+        e.preventDefault();
+        
+        // Remove active state from previous item
+        if (activeDateOverlay && activeDateOverlay !== galleryItem) {
+          activeDateOverlay.classList.remove('show-date');
+        }
+        
+        // Toggle current item
+        if (galleryItem.classList.contains('show-date')) {
+          galleryItem.classList.remove('show-date');
+          activeDateOverlay = null;
+        } else {
+          galleryItem.classList.add('show-date');
+          activeDateOverlay = galleryItem;
+          
+          // Auto-hide after 3 seconds
+          setTimeout(() => {
+            if (activeDateOverlay === galleryItem) {
+              galleryItem.classList.remove('show-date');
+              activeDateOverlay = null;
+            }
+          }, 3000);
+        }
+      }
+    });
+
+    // Remove overlay when scrolling
+    let scrollTimeout;
+    gallery.parentElement.addEventListener('scroll', function() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (activeDateOverlay) {
+          activeDateOverlay.classList.remove('show-date');
+          activeDateOverlay = null;
+        }
+      }, 100);
     });
   </script>
 
