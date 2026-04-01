@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hi, i'm mack!</title>
+  <meta name="description" content="this is my professional-ish website!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Cursor glow follower -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo">MW<span class="accent">.</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#about" class="nav__link">About</a></li>
+      <li><a href="#experience" class="nav__link">Experience</a></li>
+      <li><a href="#education" class="nav__link">Education</a></li>
+      <li><a href="#skills" class="nav__link">Skills</a></li>
+      <li><a href="#projects" class="nav__link">Projects</a></li>
+      <li><a href="#hobbies" class="nav__link">Hobbies</a></li>
+      <li><a href="#contact" class="nav__link">Contact</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Side dot navigation -->
+  <div class="side-dots" id="sideDots">
+    <a href="#hero" class="side-dot active" data-section="hero" aria-label="Hero"></a>
+    <a href="#about" class="side-dot" data-section="about" aria-label="About"></a>
+    <a href="#experience" class="side-dot" data-section="experience" aria-label="Experience"></a>
+    <a href="#education" class="side-dot" data-section="education" aria-label="Education"></a>
+    <a href="#skills" class="side-dot" data-section="skills" aria-label="Skills"></a>
+    <a href="#projects" class="side-dot" data-section="projects" aria-label="Projects"></a>
+    <a href="#hobbies" class="side-dot" data-section="hobbies" aria-label="Hobbies"></a>
+    <a href="#contact" class="side-dot" data-section="contact" aria-label="Contact"></a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+    </div>
+    <div class="hero__content">
+      <p class="hero__greeting reveal">hi, i'm</p>
+      <h1 class="hero__name reveal">mack!<span class="accent">.</span></h1>
+      <p class="hero__headline" id="typingTarget"></p>
+      <p class="hero__sub reveal-delay">cs/des @ uic &nbsp;·&nbsp; chicago, il</p>
+      <div class="hero__cta reveal-delay">
+        <a href="#experience" class="btn btn--primary magnetic">more about me!</a>
+        <a href="#contact" class="btn btn--outline magnetic">lets connect!</a>
+      </div>
+    </div>
+    <div class="hero__scroll-indicator">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section about" id="about">
+    <div class="container">
+      <h2 class="section__title reveal">about <span class="accent">me</span></h2>
+      <div class="about__grid">
+        <div class="about__text reveal">
+          <p>i'm a college sophomore at the <strong>University of Illinois Chicago</strong> passionate about technology,
+            design, and media creation,
+            combining my love for computer science and design to create meaningful
+            digital experiences.</p>
+          <p>Through roles in web design, tech support, radio blogging, and cultural organizations, I've built a diverse
+            skillset spanning front-end development, creative media, and leadership. I'm a <strong>UIC Chancellor
+              Scholarship</strong> recipient and <strong>Honors College of Engineering</strong> member, always looking
+            for ways to merge code with creativity. also, i made the dean's list for 2 different colleges last semester!
+          </p>
+        </div>
+        <div class="about__stats reveal">
+          <div class="stat-card glass">
+            <span class="stat-card__number">3.8</span>
+            <span class="stat-card__label">College GPA</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-card__number">5+</span>
+            <span class="stat-card__label">Roles</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-card__number">4+</span>
+            <span class="stat-card__label">Years Web Dev</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-card__number">BS</span>
+            <span class="stat-card__label">CS + Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="section experience" id="experience">
+    <div class="container">
+      <h2 class="section__title reveal"> <span class="accent">experience</span></h2>
+      <div class="timeline">
+
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card glass">
+            <span class="timeline__date">Jan 2026 – Present</span>
+            <h3 class="timeline__role">Intern — Historian</h3>
+            <p class="timeline__company">Filipinos In Alliance (FIA) · Chicago, IL</p>
+            <p class="timeline__desc">Supports documentation of organizational history through high-volume photography
+              and videography. Manages the FIArts subgroup, creates monthly video recaps and digital graphics, and
+              drives member engagement.</p>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card glass">
+            <span class="timeline__date">May 2025 – Present</span>
+            <h3 class="timeline__role">Retail Sales Associate</h3>
+            <p class="timeline__company">Best Buy · Norridge, IL</p>
+            <p class="timeline__desc">Provides expert product consultations, manages omnichannel shopping
+              (online/curbside), and handles financing and loyalty programs.</p>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card glass">
+            <span class="timeline__date">Mar 2021 – Present</span>
+            <h3 class="timeline__role">Website Manager</h3>
+            <p class="timeline__company">Self-employed · Chicago, IL</p>
+            <p class="timeline__desc">Focuses on front-end development (WordPress, HubSpot), client consultations,
+              project planning, Internet security, and coding (HTML, CSS, JavaScript, jQuery). Specializes in
+              mobile-friendly transitions for legacy websites.</p>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card glass">
+            <span class="timeline__date">Jun 2022 – Present</span>
+            <h3 class="timeline__role">Lead Summer Tech Department Intern</h3>
+            <p class="timeline__company">Skokie School District 73.5 · Skokie, IL</p>
+            <p class="timeline__desc">Managed device sanitation, live-streaming for school board meetings, inventory
+              management, and helped transition phone services to cloud-based Zoom Phone.</p>
+          </div>
+        </div>
+
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card glass">
+            <span class="timeline__date">Sep 2025 – Mar 2026</span>
+            <h3 class="timeline__role">Blogger</h3>
+            <p class="timeline__company">UIC Radio · Chicago, IL</p>
+            <p class="timeline__desc">Authored weekly long-form music features, deep-dive album reviews, and artist
+              spotlights. Collaborated with promotions teams to align content with on-air programming.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section class="section education" id="education">
+    <div class="container">
+      <h2 class="section__title reveal">education</h2>
+      <div class="edu__grid">
+
+        <div class="edu__card glass reveal">
+          <div class="edu__icon">🎓</div>
+          <h3 class="edu__school">University of Illinois Chicago</h3>
+          <p class="edu__degree">BS in Computer Science + Design · Minor in International Business</p>
+          <p class="edu__date">May 2025 – Dec 2028 (Expected)</p>
+          <p class="edu__detail">Honors College, College of Engineering · Chancellor Scholarship Recipient</p>
+          <div class="edu__activities">
+            <span class="tag">FIA</span>
+            <span class="tag">VSA</span>
+            <span class="tag">UIC Radio</span>
+            <span class="tag">Couture Du Jour</span>
+            <span class="tag">Music Producers Collective</span>
+          </div>
+        </div>
+
+        <div class="edu__card glass reveal">
+          <div class="edu__icon">🏫</div>
+          <h3 class="edu__school">Northside College Prep</h3>
+          <p class="edu__degree">High School Diploma</p>
+          <p class="edu__date">Sep 2021 – Jun 2025</p>
+          <p class="edu__detail">GPA: 4.85</p>
+          <div class="edu__activities">
+            <span class="tag">Film Club</span>
+            <span class="tag">Esports</span>
+            <span class="tag">CS Honor Society</span>
+            <span class="tag">Japanese Honor Society</span>
+            <span class="tag">Polish Club</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <h2 class="section__title reveal">skills</h2>
+      <div class="skills__categories">
+
+        <div class="skills__group reveal">
+          <h3 class="skills__group-title"><span class="accent">&lt;</span> Technical <span class="accent">/&gt;</span>
+          </h3>
+          <div class="skills__tags">
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">jQuery</span>
+            <span class="skill-tag">Front-End Dev</span>
+            <span class="skill-tag">Website Building</span>
+            <span class="skill-tag">Mobile Web Design</span>
+            <span class="skill-tag">Software Development</span>
+            <span class="skill-tag">Tech Support</span>
+            <span class="skill-tag">Troubleshooting</span>
+            <span class="skill-tag">Graphic Design</span>
+            <span class="skill-tag">Video Editing</span>
+          </div>
+        </div>
+
+        <div class="skills__group reveal">
+          <h3 class="skills__group-title"><span class="accent">✦</span> Creative</h3>
+          <div class="skills__tags">
+            <span class="skill-tag">Photography</span>
+            <span class="skill-tag">Videography</span>
+            <span class="skill-tag">Concept Art</span>
+            <span class="skill-tag">Page Layout</span>
+            <span class="skill-tag">Video Creation</span>
+            <span class="skill-tag">Journalism</span>
+            <span class="skill-tag">Social Media Design</span>
+          </div>
+        </div>
+
+        <div class="skills__group reveal">
+          <h3 class="skills__group-title"><span class="accent">◆</span> Professional</h3>
+          <div class="skills__tags">
+            <span class="skill-tag">Customer Service</span>
+            <span class="skill-tag">Retail Sales</span>
+            <span class="skill-tag">Small Group Facilitation</span>
+            <span class="skill-tag">Multi-tasking</span>
+            <span class="skill-tag">Project Scheduling</span>
+            <span class="skill-tag">Presentation Skills</span>
+            <span class="skill-tag">Online Branding</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="section projects" id="projects">
+    <div class="container">
+      <h2 class="section__title reveal">My <span class="accent">Projects</span></h2>
+      <p class="projects__intro reveal">A curated collection of work at the intersection of computer science and design.
+        More coming soon!</p>
+      <div class="projects__grid">
+
+        <div class="project-card glass reveal">
+          <div class="project-card__preview">
+            <div class="project-card__placeholder"><span>🌐</span></div>
+          </div>
+          <div class="project-card__info">
+            <h3 class="project-card__title">this website!</h3>
+            <p class="project-card__desc">i built this using html, css, and js, and it feels modern and snappy!</p>
+            <div class="project-card__tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">UI/UX</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-card__preview">
+            <div class="project-card__placeholder"><span>🎨</span></div>
+          </div>
+          <div class="project-card__info">
+            <h3 class="project-card__title">coming soon!</h3>
+            <p class="project-card__desc">im still building out my portfolio, and will update this section once i lay
+              out everything!</p>
+            <div class="project-card__tags">
+              <span class="tag">CS</span>
+              <span class="tag">Design</span>
+              <span class="tag">TBD</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-card__preview">
+            <div class="project-card__placeholder"><span>💡</span></div>
+          </div>
+          <div class="project-card__info">
+            <h3 class="project-card__title">Coming Soon</h3>
+            <p class="project-card__desc">More projects on the horizon — from front-end experiments to full-stack
+              applications blending code and aesthetics.</p>
+            <div class="project-card__tags">
+              <span class="tag">Full-Stack</span>
+              <span class="tag">Creative Coding</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOBBIES ============ -->
+  <section class="section hobbies" id="hobbies">
+    <div class="container">
+      <h2 class="section__title reveal">fun <span class="accent">stuff!</span></h2>
+      <p class="hobbies__intro reveal">whenever i have free time, this is what you'll see me doing!</p>
+
+      <div class="hobbies__columns">
+
+        <!-- DJ Sets -->
+        <div class="hobby-block reveal">
+          <div class="hobby-block__header">
+            <span class="hobby-block__icon">🎧</span>
+            <h3 class="hobby-block__title">djing, music</h3>
+          </div>
+          <p class="hobby-block__desc">i dj on the side, whatever i feel like playing! if you wanna book me, dm me on
+            instagram. my two latest sets are linked below, as well as my last.fm so you can see what i've been
+            listening to!</p>
+          <div class="hobby-block__grid">
+            <div class="hobby-embed glass">
+              <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/macc14/gamenight&color=%23ff6ec7&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
+                style="border:none; border-radius:14px;"></iframe>
+            </div>
+            <div class="hobby-embed glass">
+              <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/macc14/nostalgiabait&color=%23ff6ec7&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
+                style="border:none; border-radius:14px;"></iframe>
+            </div>
+          </div>
+          <a href="https://www.last.fm/user/macc14" target="_blank" rel="noopener" class="magnetic"
+            style="display: block; width: 100%; margin-top: 16px;">
+            <img src="https://lastfm-recently-played.vercel.app/api?user=macc14" height="auto" width="100%"
+              alt="Last.fm Recently Played"
+              style="border-radius: var(--radius-md); border: 1px solid var(--glass-border); display: block;" />
+          </a>
+        </div>
+
+        <!-- Cinematography / Videos -->
+        <div class="hobby-block reveal">
+          <div class="hobby-block__header">
+            <span class="hobby-block__icon">🎬</span>
+            <h3 class="hobby-block__title">Films, Vlogs & Cinematography</h3>
+          </div>
+          <p class="hobby-block__desc">From short films to vlogs and cinematic edits — I love telling stories through a
+            lens. Here's where I showcase my video work.</p>
+          <div class="hobby-block__grid">
+            <div class="hobby-embed glass">
+              <iframe src="https://www.instagram.com/p/DWVJvUPDf44/embed/" frameborder="0" scrolling="no"
+                allowtransparency="true"
+                style="width:100%; min-height:480px; border:none; border-radius:14px; background:#0b0b14;"></iframe>
+            </div>
+            <div class="hobby-embed glass">
+              <iframe src="https://www.instagram.com/p/DWKRdWrgax7/embed/" frameborder="0" scrolling="no"
+                allowtransparency="true"
+                style="width:100%; min-height:480px; border:none; border-radius:14px; background:#0b0b14;"></iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <h2 class="section__title reveal">Let's <span class="accent">Connect</span></h2>
+      <p class="contact__text reveal">I'm always open to new opportunities, collaborations, and conversations. Whether
+        you have a project in mind or just want to say hi — let's chat!</p>
+      <div class="contact__links reveal">
+        <a href="https://linkedin.com/in/mackwozniak" target="_blank" rel="noopener" class="btn btn--primary magnetic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+          LinkedIn
+        </a>
+        <a href="mailto:macktime432@gmail.com" class="btn btn--outline magnetic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+          </svg>
+          Email Me
+        </a>
+        <a href="https://instagram.com/macc14_" target="_blank" rel="noopener" class="btn btn--outline magnetic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+          </svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__logo">MW<span class="accent">.</span></p>
+      <p class="footer__copy">&copy; 2026 Mack Wozniak.</p>
+    </div>
+  </footer>
+
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
