@@ -37,7 +37,6 @@
   const phrases = [
     'Aspiring Front-End Developer & UI/UX Designer',
     'DJ/Filmmaker/Photographer',
-    'UIC Honors CS + Design 28',
   ];
 
   let phraseIdx = 0, charIdx = 0, isDeleting = false;
@@ -175,5 +174,156 @@
       setTimeout(() => el.classList.add('visible'), 300);
     });
   });
+
+  // ---- Photo Gallery Lightbox ----
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  const galleryItems = document.querySelectorAll('.photo-gallery__item');
+
+  // Build flat galleryData array — carousel items expand into multiple entries
+  const galleryData = [];
+  const itemToLightboxStart = new Map(); // maps gallery item index → starting lightbox index
+
+  galleryItems.forEach((item, idx) => {
+    const carouselSlides = item.querySelectorAll('.carousel__slide img');
+    itemToLightboxStart.set(idx, galleryData.length);
+
+    if (carouselSlides.length > 0) {
+      // Carousel item: add each slide as its own lightbox entry
+      carouselSlides.forEach((img) => {
+        const label = item.querySelector('.photo-gallery__label');
+        galleryData.push({
+          src: img.src,
+          alt: img.alt,
+          label: label ? label.textContent : ''
+        });
+      });
+    } else {
+      // Standard single-image item
+      const img = item.querySelector('img');
+      const label = item.querySelector('.photo-gallery__label');
+      galleryData.push({
+        src: img.src,
+        alt: img.alt,
+        label: label ? label.textContent : ''
+      });
+    }
+  });
+
+  let currentLightboxIndex = 0;
+
+  function openLightbox(index) {
+    currentLightboxIndex = index;
+    updateLightbox();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightbox() {
+    const data = galleryData[currentLightboxIndex];
+    if (data && lightboxImg) {
+      lightboxImg.src = data.src;
+      lightboxImg.alt = data.alt;
+      if (lightboxCaption) {
+        lightboxCaption.textContent = data.label + ' — ' + data.alt;
+      }
+    }
+  }
+
+  function nextPhoto() {
+    currentLightboxIndex = (currentLightboxIndex + 1) % galleryData.length;
+    updateLightbox();
+  }
+
+  function prevPhoto() {
+    currentLightboxIndex = (currentLightboxIndex - 1 + galleryData.length) % galleryData.length;
+    updateLightbox();
+  }
+
+  // Click handlers for non-carousel gallery items
+  galleryItems.forEach((item, i) => {
+    if (item.classList.contains('photo-gallery__item--carousel')) return; // handled separately
+    item.addEventListener('click', () => openLightbox(itemToLightboxStart.get(i)));
+  });
+
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxNext) lightboxNext.addEventListener('click', nextPhoto);
+  if (lightboxPrev) lightboxPrev.addEventListener('click', prevPhoto);
+
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox || !lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextPhoto();
+    if (e.key === 'ArrowLeft') prevPhoto();
+  });
+
+  // ---- Project 2 Carousel Controller ----
+  const p2Carousel = document.getElementById('p2Carousel');
+  if (p2Carousel) {
+    const track = p2Carousel.querySelector('.carousel__track');
+    const slides = p2Carousel.querySelectorAll('.carousel__slide');
+    const dots = p2Carousel.querySelectorAll('.carousel__dot');
+    const prevBtn = p2Carousel.querySelector('.carousel__btn--prev');
+    const nextBtn = p2Carousel.querySelector('.carousel__btn--next');
+    const carouselItem = p2Carousel.closest('.photo-gallery__item--carousel');
+    let currentSlide = 0;
+
+    function goToSlide(index) {
+      currentSlide = ((index % slides.length) + slides.length) % slides.length;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('carousel__dot--active', i === currentSlide));
+      slides.forEach((s, i) => s.classList.toggle('carousel__slide--active', i === currentSlide));
+    }
+
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(currentSlide - 1);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(currentSlide + 1);
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goToSlide(parseInt(dot.dataset.slide, 10));
+      });
+    });
+
+    // Click on the carousel image area opens lightbox at the correct slide
+    if (carouselItem) {
+      const itemIdx = parseInt(carouselItem.dataset.index, 10);
+      carouselItem.addEventListener('click', (e) => {
+        // Don't open lightbox when clicking carousel controls
+        if (e.target.closest('.carousel__btn') || e.target.closest('.carousel__dot')) return;
+        const lightboxStart = itemToLightboxStart.get(itemIdx);
+        openLightbox(lightboxStart + currentSlide);
+      });
+    }
+
+    // Auto-advance every 4 seconds, pause on hover
+    let autoPlay = setInterval(() => goToSlide(currentSlide + 1), 4000);
+    p2Carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
+    p2Carousel.addEventListener('mouseleave', () => {
+      autoPlay = setInterval(() => goToSlide(currentSlide + 1), 4000);
+    });
+  }
 
 })();

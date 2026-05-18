@@ -296,20 +296,73 @@
           </div>
         </div>
 
-        <div class="project-card glass reveal">
-          <div class="project-card__preview">
-            <div class="project-card__placeholder"><span>🎨</span></div>
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">coming soon!</h3>
-            <p class="project-card__desc">im still building out my portfolio, and will update this section once i lay
-              out everything!</p>
-            <div class="project-card__tags">
-              <span class="tag">CS</span>
-              <span class="tag">Design</span>
-              <span class="tag">TBD</span>
+        <div class="project-card project-card--gallery glass reveal">
+          <div class="project-card__preview project-card__preview--gallery">
+            <div class="photo-gallery" id="desPhotoGallery">
+              <div class="photo-gallery__item" data-index="0">
+                <img src="images/des160/p1_architecture.jpg" alt="Light & Shadow – beach coastline study" loading="lazy">
+                <div class="photo-gallery__overlay">
+                  <span class="photo-gallery__label">Light & Shadow</span>
+                </div>
+              </div>
+              <!-- Project 2: Horizontal Carousel -->
+              <div class="photo-gallery__item photo-gallery__item--carousel" data-index="1">
+                <div class="carousel" id="p2Carousel">
+                  <div class="carousel__track">
+                    <div class="carousel__slide carousel__slide--active">
+                      <img src="images/des160/p2_angle_1.jpeg" alt="Angle & Level – granite steps corner perspective" loading="lazy">
+                    </div>
+                    <div class="carousel__slide">
+                      <img src="images/des160/p2_angle_2.jpeg" alt="Angle & Level – granite steps angular composition" loading="lazy">
+                    </div>
+                    <div class="carousel__slide">
+                      <img src="images/des160/p2_angle_3.jpeg" alt="Angle & Level – granite steps overhead view" loading="lazy">
+                    </div>
+                  </div>
+                  <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide">‹</button>
+                  <button class="carousel__btn carousel__btn--next" aria-label="Next slide">›</button>
+                  <div class="carousel__dots">
+                    <span class="carousel__dot carousel__dot--active" data-slide="0"></span>
+                    <span class="carousel__dot" data-slide="1"></span>
+                    <span class="carousel__dot" data-slide="2"></span>
+                  </div>
+                </div>
+                <div class="photo-gallery__overlay">
+                  <span class="photo-gallery__label">Angle & Level</span>
+                </div>
+              </div>
+              <div class="photo-gallery__item" data-index="2">
+                <img src="images/des160/p3_sculpture.JPG" alt="Form, Image & Type – paper form study on black" loading="lazy">
+                <div class="photo-gallery__overlay">
+                  <span class="photo-gallery__label">Form, Image & Type</span>
+                </div>
+              </div>
+              <div class="photo-gallery__item" data-index="3">
+                <img src="images/des160/p4_still_life.jpg" alt="Studio & Location – kitchen objects composition" loading="lazy">
+                <div class="photo-gallery__overlay">
+                  <span class="photo-gallery__label">Studio & Location</span>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="project-card__info">
+            <h3 class="project-card__title">design photography</h3>
+            <p class="project-card__desc">a collection of photos from my DES160 design photography course — exploring architecture, portraiture, form studies, and still life.</p>
+            <div class="project-card__tags">
+              <span class="tag">Photography</span>
+              <span class="tag">Design</span>
+              <span class="tag">DES160</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox">
+          <button class="lightbox__close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+          <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+          <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+          <img class="lightbox__img" id="lightboxImg" src="" alt="Enlarged photo">
+          <p class="lightbox__caption" id="lightboxCaption"></p>
         </div>
 
         <div class="project-card glass reveal">
