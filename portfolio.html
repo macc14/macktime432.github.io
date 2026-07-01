@@ -2,126 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mack Wozniak — Web Design Portfolio</title>
+  <title>Mack Wozniak — Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @page { size: letter; margin: 0; }
+    @page { 
+      size: letter; 
+      margin: 0.8in 0.8in; 
+    }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       color: #1a1a1a;
-      line-height: 1.6;
+      line-height: 1.5;
       margin: 0;
       padding: 0;
       background: #fff;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-    .page {
-      width: 8.5in;
-      height: 11in;
-      position: relative;
-      overflow: hidden;
-      page-break-after: always;
-      box-sizing: border-box;
-      padding: 0.8in;
     }
     
-    /* Cover Page */
-    .cover-page {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-color: #fafafa;
-      border-top: 12px solid #1a1a1a;
+    /* Cover Header */
+    .header {
+      margin-bottom: 2rem;
+      border-bottom: 3px solid #1a1a1a;
+      padding-bottom: 1.5rem;
     }
-    .cover-header h1 {
-      font-size: 3.5rem;
+    .header h1 {
+      font-size: 2.8rem;
       font-weight: 700;
-      letter-spacing: -1.5px;
-      margin: 0 0 0.5rem 0;
+      letter-spacing: -1px;
+      margin: 0 0 0.3rem 0;
     }
-    .cover-header h2 {
-      font-size: 1.5rem;
+    .header h2 {
+      font-size: 1.3rem;
       font-weight: 400;
       color: #666;
-      margin: 0 0 2rem 0;
+      margin: 0 0 1.2rem 0;
     }
-    .cover-intro {
-      max-width: 6in;
-      font-size: 1.1rem;
+    .intro {
+      font-size: 0.95rem;
       color: #444;
-      line-height: 1.8;
-      margin-bottom: 3rem;
+      line-height: 1.6;
+      max-width: 95%;
+      margin-bottom: 1.2rem;
     }
     .contact-info {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      color: #1a1a1a;
+      color: #222;
+      display: flex;
+      gap: 1.5rem;
     }
     .contact-info span {
-      display: inline-block;
-      margin-right: 1.5rem;
       border-bottom: 1px solid #ccc;
       padding-bottom: 2px;
     }
 
-    /* Content Pages */
+    /* Content Sections */
     .section-title {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 600;
-      color: #888;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111;
       border-bottom: 1px solid #eaeaea;
-      padding-bottom: 0.5rem;
-      margin-top: 0;
-      margin-bottom: 2rem;
+      padding-bottom: 0.4rem;
+      margin-top: 2rem;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6in;
-    }
-
-    .project-card {
+    .project {
       display: flex;
-      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+      page-break-inside: avoid;
+      align-items: flex-start;
     }
 
     .project-image-wrapper {
-      width: 100%;
-      height: 3in;
+      width: 45%;
       background: #f4f4f5;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
-      margin-bottom: 1rem;
       border: 1px solid #eaeaea;
+      flex-shrink: 0;
     }
     .project-image-wrapper img {
       width: 100%;
-      height: 100%;
+      display: block;
       object-fit: cover;
-      object-position: top;
+    }
+    
+    .project-image-wrapper.graphic {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    .project-image-wrapper.graphic img {
+      border: 1px solid #eaeaea;
+    }
+
+    .project-content {
+      width: 55%;
     }
 
     .project-title {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.15rem;
+      font-weight: 700;
       margin: 0 0 0.2rem 0;
       color: #111;
     }
     .project-url {
-      font-size: 0.85rem;
-      color: #666;
+      font-size: 0.8rem;
+      color: #555;
       text-decoration: none;
       display: block;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
     .project-desc {
       font-size: 0.9rem;
-      color: #444;
-      margin: 0 0 1rem 0;
+      color: #333;
+      margin: 0 0 0.8rem 0;
       line-height: 1.5;
     }
     .project-tags {
@@ -131,60 +129,53 @@
     }
     .tag {
       background: #f4f4f5;
-      color: #555;
+      color: #444;
       font-size: 0.75rem;
       font-weight: 500;
       padding: 0.2rem 0.6rem;
       border-radius: 4px;
+      border: 1px solid #ddd;
     }
 
     /* Skills Grid */
     .skills-section {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 0.4in;
-      margin-top: 1rem;
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+      page-break-inside: avoid;
     }
     .skill-block h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0 0 0.5rem 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 0.4rem 0;
       color: #111;
     }
     .skill-block p {
       font-size: 0.85rem;
       color: #555;
       margin: 0;
-      line-height: 1.6;
+      line-height: 1.5;
     }
-
-    /* Footer */
-    .page-footer {
-      position: absolute;
-      bottom: 0.6in;
-      left: 0.8in;
-      right: 0.8in;
+    
+    /* Utility for emojis if needed */
+    .emoji-placeholder {
+      font-size: 3rem;
       display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: #999;
-      border-top: 1px solid #eaeaea;
-      padding-top: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      background: #f8f9fa;
     }
   </style>
 </head>
 <body>
 
-  <!-- Cover Page -->
-  <div class="page cover-page">
-    <div class="cover-header">
-      <h1>Mack Wozniak.</h1>
-      <h2>Web Designer & Front-End Developer</h2>
-    </div>
-    <p class="cover-intro">
-      A portfolio showcasing website and landing page designs built for real businesses. 
-      Demonstrating proficiency across multiple platforms, creative design skills, 
-      and a passion for community and entrepreneurship.
+  <div class="header">
+    <h1>Mack Wozniak</h1>
+    <h2>Web Designer & iOS Developer</h2>
+    <p class="intro">
+      A portfolio showcasing website designs, native iOS applications, and graphic design built for real businesses and passion projects. Demonstrating proficiency across multiple platforms, creative design skills, and technical software development.
     </p>
     <div class="contact-info">
       <span>macktime432@gmail.com</span>
@@ -193,175 +184,149 @@
     </div>
   </div>
 
-  <!-- Page 2: Web Design 1 -->
-  <div class="page">
-    <h2 class="section-title">Web Design & Development</h2>
-    <div class="project-grid">
-      
-      <div class="project-card">
-        <div class="project-image-wrapper">
-          <img src="screenshot_portfolio.png" alt="Personal Portfolio">
-        </div>
-        <h3 class="project-title">Personal Portfolio</h3>
-        <a href="https://macktime432.github.io" class="project-url">macktime432.github.io</a>
-        <p class="project-desc">Fully hand-coded from the ground up using HTML, CSS, and JavaScript. Designed, developed, and deployed independently to GitHub Pages.</p>
-        <div class="project-tags">
-          <span class="tag">HTML/CSS/JS</span>
-          <span class="tag">Custom Design</span>
-          <span class="tag">GitHub Pages</span>
-        </div>
-      </div>
+  <h2 class="section-title">Web & App Development</h2>
 
-      <div class="project-card">
-        <div class="project-image-wrapper">
-          <img src="screenshot_genzrealty.png" alt="Gen Z Realty">
-        </div>
-        <h3 class="project-title">Gen Z Realty</h3>
-        <a href="https://genzrealty.com" class="project-url">genzrealty.com</a>
-        <p class="project-desc">Designed and built a professional real estate website for a brokerage targeting younger homebuyers. Focused on a trustworthy, modern brand identity.</p>
-        <div class="project-tags">
-          <span class="tag">Squarespace</span>
-          <span class="tag">Web Design</span>
-          <span class="tag">Branding</span>
-        </div>
-      </div>
-
+  <div class="project">
+    <div class="project-image-wrapper">
+      <img src="screenshot_portfolio.png" alt="Personal Portfolio">
     </div>
-
-    <div class="page-footer">
-      <span>Mack Wozniak — Portfolio</span>
-      <span>01</span>
+    <div class="project-content">
+      <h3 class="project-title">Personal Portfolio</h3>
+      <a href="https://macktime432.github.io" class="project-url">macktime432.github.io</a>
+      <p class="project-desc">Fully hand-coded from the ground up using HTML, CSS, and JavaScript. Designed, developed, and deployed independently to GitHub Pages.</p>
+      <div class="project-tags">
+        <span class="tag">HTML/CSS/JS</span>
+        <span class="tag">Custom Design</span>
+        <span class="tag">GitHub Pages</span>
+      </div>
     </div>
   </div>
 
-  <!-- Page 3: Web Design 2 -->
-  <div class="page">
-    <h2 class="section-title">E-Commerce & Service Brands</h2>
-    <div class="project-grid">
-      
-      <div class="project-card">
-        <div class="project-image-wrapper">
-          <img src="screenshot_cityash.png" alt="City Ash">
-        </div>
-        <h3 class="project-title">City Ash Soap & Candle</h3>
-        <a href="https://cityashsoap.com" class="project-url">cityashsoap.com</a>
-        <p class="project-desc">Designed an e-commerce storefront for a handcrafted soap and candle brand. Built a clean aesthetic with a custom Chicago skyline illustration.</p>
-        <div class="project-tags">
-          <span class="tag">Shopify</span>
-          <span class="tag">E-Commerce</span>
-          <span class="tag">Product Presentation</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image-wrapper">
-          <img src="screenshot_crystal.png" alt="Crystal Services">
-        </div>
-        <h3 class="project-title">Crystal Services</h3>
-        <a href="https://crystalservicesllc.com" class="project-url">crystalservicesllc.com</a>
-        <p class="project-desc">Designed a landing page for a family-run janitorial company. Built to convert leads with clear calls to action and a professional palette.</p>
-        <div class="project-tags">
-          <span class="tag">GoDaddy</span>
-          <span class="tag">Landing Page</span>
-          <span class="tag">Lead Conversion</span>
-        </div>
-      </div>
-
+  <div class="project">
+    <div class="project-image-wrapper">
+      <div class="emoji-placeholder">🎸</div>
     </div>
-
-    <div class="page-footer">
-      <span>Mack Wozniak — Portfolio</span>
-      <span>02</span>
+    <div class="project-content">
+      <h3 class="project-title">Encore (iOS App)</h3>
+      <a href="https://github.com/macc14/setlistnative" class="project-url">github.com/macc14/setlistnative</a>
+      <p class="project-desc">A native iOS 17 app built in Swift/SwiftUI to track and log upcoming/past concerts. Features include auto-fetching events via Bandsintown/Ticketmaster APIs, fetching setlists via Setlist.fm, SwiftData persistent storage, and Home Screen widgets.</p>
+      <div class="project-tags">
+        <span class="tag">SwiftUI</span>
+        <span class="tag">SwiftData</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">WidgetKit</span>
+      </div>
     </div>
   </div>
 
-  <!-- Page 3.5: App Development -->
-  <div class="page">
-    <h2 class="section-title">Web Applications</h2>
-    <div class="project-grid">
-      
-      <div class="project-card">
-        <div class="project-image-wrapper" style="display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
-          <span style="font-size: 4rem;">🎵</span>
-        </div>
-        <h3 class="project-title">Concert Tracking App</h3>
-        <p class="project-desc">A custom application to log, track, and review live music events. Designed to provide personalized statistics and setlist integration for music enthusiasts.</p>
-        <div class="project-tags">
-          <span class="tag">Web App</span>
-          <span class="tag">UI/UX Design</span>
-        </div>
-      </div>
-      
-      <div class="project-card">
-        <div class="project-image-wrapper" style="display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
-          <span style="font-size: 4rem;">🏠</span>
-        </div>
-        <h3 class="project-title">Smart Home Integrations</h3>
-        <p class="project-desc">Custom home automation setups integrating various IoT devices into a unified smart ecosystem. Focus on scripting, local networking, and seamless user experience.</p>
-        <div class="project-tags">
-          <span class="tag">IoT</span>
-          <span class="tag">Home Automation</span>
-        </div>
-      </div>
-
+  <div class="project">
+    <div class="project-image-wrapper">
+      <img src="screenshot_genzrealty.png" alt="Gen Z Realty">
     </div>
-
-    <div class="page-footer">
-      <span>Mack Wozniak — Portfolio</span>
-      <span>03</span>
+    <div class="project-content">
+      <h3 class="project-title">Gen Z Realty</h3>
+      <a href="https://genzrealty.com" class="project-url">genzrealty.com</a>
+      <p class="project-desc">Designed and built a professional real estate website for a brokerage targeting younger homebuyers. Focused on a trustworthy, modern brand identity and seamless layout optimization.</p>
+      <div class="project-tags">
+        <span class="tag">Squarespace</span>
+        <span class="tag">Web Design</span>
+        <span class="tag">Branding</span>
+      </div>
     </div>
   </div>
 
-  <!-- Page 4: Graphic Design & Skills -->
-  <div class="page">
-    <h2 class="section-title">Graphic Design</h2>
-    <div class="project-grid" style="margin-bottom: 0.6in;">
-      
-      <div class="project-card">
-        <div class="project-image-wrapper" style="height: auto; border: none; background: #fff; padding: 1rem; border: 1px solid #eaeaea; display: flex; align-items: center; justify-content: center;">
-          <img src="canva_fashion_show.png" alt="Fashion Show Flyer" style="max-height: 3in; width: auto; object-fit: contain;">
-        </div>
-        <h3 class="project-title">FIArts Fashion Show</h3>
-        <p class="project-desc">Recruitment graphic for a student organization. Focus on elegant typography and clean visual hierarchy.</p>
-        <div class="project-tags">
-          <span class="tag">Canva</span>
-          <span class="tag">Layout</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image-wrapper" style="height: auto; border: none; background: #fff; padding: 1rem; border: 1px solid #eaeaea; display: flex; align-items: center; justify-content: center;">
-          <img src="canva_valentines.png" alt="Valentines Flyer" style="max-height: 3in; width: auto; object-fit: contain;">
-        </div>
-        <h3 class="project-title">Valentine's Destressor</h3>
-        <p class="project-desc">Vibrant event flyer for a social event. Utilized bold colors and engaging shapes to attract students.</p>
-        <div class="project-tags">
-          <span class="tag">Canva</span>
-          <span class="tag">Event Promo</span>
-        </div>
-      </div>
-
+  <div class="project">
+    <div class="project-image-wrapper">
+      <img src="screenshot_cityash.png" alt="City Ash">
     </div>
-
-    <h2 class="section-title">Core Competencies</h2>
-    <div class="skills-section">
-      <div class="skill-block">
-        <h3>Platforms & Tech</h3>
-        <p>Squarespace, Shopify, GoDaddy, WordPress, Webflow basics. Hand-coding with HTML/CSS and Javascript.</p>
-      </div>
-      <div class="skill-block">
-        <h3>Design Tools</h3>
-        <p>Figma, Canva, Adobe Creative Cloud (Premiere Pro, XD), UI/UX principles.</p>
-      </div>
-      <div class="skill-block">
-        <h3>Professional Skills</h3>
-        <p>Independent project management, strong attention to detail, creative eye, and brand building.</p>
+    <div class="project-content">
+      <h3 class="project-title">City Ash Soap & Candle</h3>
+      <a href="https://cityashsoap.com" class="project-url">cityashsoap.com</a>
+      <p class="project-desc">Designed an e-commerce storefront for a handcrafted soap and candle brand. Built a clean aesthetic with a custom Chicago skyline illustration.</p>
+      <div class="project-tags">
+        <span class="tag">Shopify</span>
+        <span class="tag">E-Commerce</span>
+        <span class="tag">Product Presentation</span>
       </div>
     </div>
+  </div>
 
-    <div class="page-footer">
-      <span>Mack Wozniak — Portfolio</span>
-      <span>04</span>
+  <div class="project">
+    <div class="project-image-wrapper">
+      <img src="screenshot_crystal.png" alt="Crystal Services">
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">Crystal Services</h3>
+      <a href="https://crystalservicesllc.com" class="project-url">crystalservicesllc.com</a>
+      <p class="project-desc">Designed a landing page for a family-run janitorial company. Built to convert leads with clear calls to action and a professional palette.</p>
+      <div class="project-tags">
+        <span class="tag">GoDaddy</span>
+        <span class="tag">Landing Page</span>
+        <span class="tag">Lead Conversion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-image-wrapper">
+      <div class="emoji-placeholder">🏠</div>
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">Smart Home Integrations</h3>
+      <p class="project-desc">Custom home automation setups integrating various IoT devices into a unified smart ecosystem. Focus on scripting, local networking, and seamless user experience.</p>
+      <div class="project-tags">
+        <span class="tag">IoT</span>
+        <span class="tag">Home Automation</span>
+        <span class="tag">Networking</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Graphic Design</h2>
+
+  <div class="project">
+    <div class="project-image-wrapper graphic">
+      <img src="canva_fashion_show.png" alt="Fashion Show Flyer">
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">FIArts Fashion Show</h3>
+      <p class="project-desc">Recruitment graphic for a student organization. Focus on elegant typography and clean visual hierarchy to attract fashion committee members.</p>
+      <div class="project-tags">
+        <span class="tag">Canva</span>
+        <span class="tag">Layout Design</span>
+        <span class="tag">Typography</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-image-wrapper graphic">
+      <img src="canva_valentines.png" alt="Valentines Flyer">
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">Valentine's Destressor</h3>
+      <p class="project-desc">Vibrant event flyer for a university social event. Utilized bold colors and engaging geometric shapes to attract student participation.</p>
+      <div class="project-tags">
+        <span class="tag">Canva</span>
+        <span class="tag">Event Promotion</span>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Core Competencies</h2>
+  
+  <div class="skills-section">
+    <div class="skill-block">
+      <h3>Development</h3>
+      <p>Swift, SwiftUI, HTML, CSS, JavaScript, REST API Integration, SwiftData, Git/Version Control.</p>
+    </div>
+    <div class="skill-block">
+      <h3>Design & Platforms</h3>
+      <p>Figma, Canva, Squarespace, Shopify, WordPress. UI/UX Principles, Branding, Layout Design.</p>
+    </div>
+    <div class="skill-block">
+      <h3>Professional Skills</h3>
+      <p>Independent project management, problem-solving, strong attention to detail, and a creative eye.</p>
     </div>
   </div>
 
