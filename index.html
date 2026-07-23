@@ -78,7 +78,7 @@
       <h2 class="section__title reveal">about <span class="accent">me</span></h2>
       <div class="about__grid">
         <div class="about__text reveal">
-          <p>i'm a college sophomore at the <strong>University of Illinois Chicago</strong> passionate about technology,
+          <p>i'm a college junior at the <strong>University of Illinois Chicago</strong> passionate about technology,
             design, and media creation,
             combining my love for computer science and design to create meaningful
             digital experiences.</p>
@@ -120,7 +120,7 @@
           <div class="timeline__dot"></div>
           <div class="timeline__card glass">
             <span class="timeline__date">Jan 2026 – Present</span>
-            <h3 class="timeline__role">Intern — Historian</h3>
+            <h3 class="timeline__role">Historian</h3>
             <p class="timeline__company">Filipinos In Alliance (FIA) · Chicago, IL</p>
             <p class="timeline__desc">Supports documentation of organizational history through high-volume photography
               and videography. Manages the FIArts subgroup, creates monthly video recaps and digital graphics, and
@@ -281,6 +281,42 @@
       <div class="projects__grid">
 
         <div class="project-card glass reveal">
+          <div class="project-card__preview" style="padding: 0; overflow-x: auto; display: flex; gap: 8px; -webkit-overflow-scrolling: touch;">
+            <img src="images/encore_upcoming.jpg" alt="Encore upcoming view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
+            <img src="images/encore_past.jpg" alt="Encore past view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
+            <img src="images/encore_stats.jpg" alt="Encore stats view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
+            <img src="images/encore_detail.jpg" alt="Encore detail view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
+          </div>
+          <div class="project-card__info">
+            <h3 class="project-card__title">Encore (iOS App)</h3>
+            <p class="project-card__desc">A native iOS 17 app built in Swift/SwiftUI to track and log upcoming/past concerts. Auto-fetches events via Bandsintown/Ticketmaster and setlists via Setlist.fm APIs, utilizing SwiftData for persistent storage.</p>
+            <div class="project-card__tags">
+              <span class="tag">SwiftUI</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">SwiftData</span>
+            </div>
+            <a href="https://github.com/macc14/setlistnative" target="_blank" class="btn btn--outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+              View Repository
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card glass reveal">
+          <div class="project-card__preview">
+            <div class="project-card__placeholder" style="font-size: 3rem;"><span>🏠</span></div>
+          </div>
+          <div class="project-card__info">
+            <h3 class="project-card__title">Smart Home Integrations</h3>
+            <p class="project-card__desc">Custom home automation setups integrating various IoT devices into a unified smart ecosystem. Focus on scripting, local networking, and seamless user experience.</p>
+            <div class="project-card__tags">
+              <span class="tag">IoT</span>
+              <span class="tag">Home Automation</span>
+              <span class="tag">Networking</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass reveal">
           <div class="project-card__preview">
             <div class="project-card__placeholder"><span>🌐</span></div>
           </div>
@@ -422,39 +458,6 @@
           </div>
         </div>
 
-        <div class="project-card glass reveal">
-          <div class="project-card__preview">
-            <div class="project-card__placeholder" style="font-size: 3rem;"><span>🏠</span></div>
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">Smart Home Integrations</h3>
-            <p class="project-card__desc">Custom home automation setups integrating various IoT devices into a unified smart ecosystem. Focus on scripting, local networking, and seamless user experience.</p>
-            <div class="project-card__tags">
-              <span class="tag">IoT</span>
-              <span class="tag">Home Automation</span>
-              <span class="tag">Networking</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card glass reveal">
-          <div class="project-card__preview">
-            <div class="project-card__placeholder" style="font-size: 3rem;"><span>🎸</span></div>
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">Encore (iOS App)</h3>
-            <p class="project-card__desc">A native iOS 17 app built in Swift/SwiftUI to track and log upcoming/past concerts. Auto-fetches events via Bandsintown/Ticketmaster and setlists via Setlist.fm APIs, utilizing SwiftData for persistent storage.</p>
-            <div class="project-card__tags">
-              <span class="tag">SwiftUI</span>
-              <span class="tag">REST APIs</span>
-              <span class="tag">SwiftData</span>
-            </div>
-            <a href="https://github.com/macc14/setlistnative" target="_blank" class="btn btn--outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-              View Repository
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -508,14 +511,7 @@
           </p>
           <div class="hobby-block__grid">
             <div class="hobby-embed glass">
-              <iframe loading="lazy" src="https://www.instagram.com/p/DWVJvUPDf44/embed/" frameborder="0" scrolling="no"
-                allowtransparency="true"
-                style="width:100%; min-height:480px; border:none; border-radius:14px; background:#0b0b14;"></iframe>
-            </div>
-            <div class="hobby-embed glass">
-              <iframe loading="lazy" src="https://www.instagram.com/p/DWKRdWrgax7/embed/" frameborder="0" scrolling="no"
-                allowtransparency="true"
-                style="width:100%; min-height:480px; border:none; border-radius:14px; background:#0b0b14;"></iframe>
+              <p style="text-align: center; padding: 2rem; color: var(--text-muted);">check out my latest videos on <a href="https://instagram.com/maccstuff" target="_blank" style="color: var(--accent);">@maccstuff</a>!</p>
             </div>
           </div>
         </div>
@@ -538,14 +534,14 @@
           </svg>
           LinkedIn
         </a>
-        <a href="mailto:macktime432@gmail.com" class="btn btn--outline magnetic">
+        <a href="mailto:mwozn9@uic.edu" class="btn btn--outline magnetic">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="4" width="20" height="16" rx="2" />
             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
           </svg>
           Email Me
         </a>
-        <a href="https://instagram.com/macc14_" target="_blank" rel="noopener" class="btn btn--outline magnetic">
+        <a href="https://instagram.com/maccstuff" target="_blank" rel="noopener" class="btn btn--outline magnetic">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
