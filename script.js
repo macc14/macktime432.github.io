@@ -6,6 +6,35 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ---- Theme toggle ----
+  // No saved choice means "follow the system"; clicking picks the opposite of
+  // whatever is showing now and remembers it.
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function currentTheme() {
+    return root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+  }
+
+  function syncToggleLabel() {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    themeToggle.setAttribute('aria-label', `Switch to ${next} mode`);
+  }
+
+  if (themeToggle) {
+    syncToggleLabel();
+    systemDark.addEventListener('change', syncToggleLabel);
+    themeToggle.addEventListener('click', () => {
+      const next = currentTheme() === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch (e) { /* storage blocked; the choice lasts for this page view */ }
+      syncToggleLabel();
+    });
+  }
+
   // ---- Mobile menu ----
   const navLinks = document.getElementById('navLinks');
   const hamburger = document.getElementById('hamburger');

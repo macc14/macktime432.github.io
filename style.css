@@ -50,8 +50,9 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* dark: follows the system unless the visitor picked a theme with the toggle */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #111110;
     --paper-2: #1c1c1a;
     --sheet: #1c1c1a;
@@ -64,6 +65,20 @@
     --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 28px -16px rgb(0 0 0 / 0.8);
     color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --paper: #111110;
+  --paper-2: #1c1c1a;
+  --sheet: #1c1c1a;
+  --ink: #efeee9;
+  --ink-2: #a3a29c;
+  --rule: #efeee9;
+  --rule-soft: #34332f;
+  --pink: #ff5cb8;
+  --pink-ink: #ff7cc6;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 28px -16px rgb(0 0 0 / 0.8);
+  color-scheme: dark;
 }
 
 /* ============================================
@@ -176,6 +191,33 @@ strong {
 .nav__links {
   display: flex;
   gap: clamp(16px, 2.2vw, 28px);
+  margin-left: auto;
+}
+
+/* theme toggle: a half-inked circle, flips when the theme flips */
+.theme-toggle {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.theme-toggle__dot {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--ink) 50%, transparent 50%);
+  transition: transform 0.4s var(--ease);
+}
+
+.theme-toggle:hover .theme-toggle__dot {
+  transform: rotate(180deg);
 }
 
 .nav__link {
@@ -1121,6 +1163,10 @@ strong {
 @media (max-width: 900px) {
   .nav__hamburger {
     display: block;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
   }
 
   .nav__links {
