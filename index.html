@@ -6,551 +6,619 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hi, i'm mack!</title>
   <meta name="description" content="this is my professional-ish website!">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230b0b14%22/><text x=%2250%22 y=%2272%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2265%22 text-anchor=%22middle%22 fill=%22%23ff6ec7%22>m.</text></svg>">
 </head>
 
 <body>
-  <!-- Cursor glow follower -->
-  <div class="cursor-glow" id="cursorGlow"></div>
 
   <!-- Navigation -->
   <nav class="nav" id="nav">
-    <a href="#hero" class="nav__logo">MW<span class="accent">.</span></a>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="#about" class="nav__link">About</a></li>
-      <li><a href="#experience" class="nav__link">Experience</a></li>
-      <li><a href="#education" class="nav__link">Education</a></li>
-      <li><a href="#skills" class="nav__link">Skills</a></li>
-      <li><a href="#projects" class="nav__link">Projects</a></li>
-      <li><a href="#hobbies" class="nav__link">Hobbies</a></li>
-      <li><a href="#contact" class="nav__link">Contact</a></li>
-    </ul>
-    <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">MW<span class="accent">.</span></a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#about" class="nav__link">About</a></li>
+        <li><a href="#experience" class="nav__link">Experience</a></li>
+        <li><a href="#education" class="nav__link">Education</a></li>
+        <li><a href="#skills" class="nav__link">Skills</a></li>
+        <li><a href="#projects" class="nav__link">Projects</a></li>
+        <li><a href="#hobbies" class="nav__link">Hobbies</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
   </nav>
 
-  <!-- Side dot navigation -->
-  <div class="side-dots" id="sideDots">
-    <a href="#hero" class="side-dot active" data-section="hero" aria-label="Hero"></a>
-    <a href="#about" class="side-dot" data-section="about" aria-label="About"></a>
-    <a href="#experience" class="side-dot" data-section="experience" aria-label="Experience"></a>
-    <a href="#education" class="side-dot" data-section="education" aria-label="Education"></a>
-    <a href="#skills" class="side-dot" data-section="skills" aria-label="Skills"></a>
-    <a href="#projects" class="side-dot" data-section="projects" aria-label="Projects"></a>
-    <a href="#hobbies" class="side-dot" data-section="hobbies" aria-label="Hobbies"></a>
-    <a href="#contact" class="side-dot" data-section="contact" aria-label="Contact"></a>
-  </div>
+  <main>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="hero">
-    <div class="hero__bg">
-      <div class="hero__orb hero__orb--1"></div>
-      <div class="hero__orb hero__orb--2"></div>
-      <div class="hero__orb hero__orb--3"></div>
-    </div>
-    <div class="hero__content">
-      <p class="hero__greeting reveal">hi, i'm</p>
-      <h1 class="hero__name reveal">mack!<span class="accent">.</span></h1>
-      <p class="hero__headline" id="typingTarget"></p>
-      <p class="hero__sub reveal-delay">cs/des @ uic &nbsp;·&nbsp; chicago, il</p>
-      <div class="hero__cta reveal-delay">
-        <a href="#experience" class="btn btn--primary magnetic">more about me!</a>
-        <a href="#contact" class="btn btn--outline magnetic">lets connect!</a>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="container hero__frame">
+        <span class="crop crop--tl" aria-hidden="true"></span><span class="crop crop--tr" aria-hidden="true"></span>
+        <span class="crop crop--bl" aria-hidden="true"></span><span class="crop crop--br" aria-hidden="true"></span>
+        <div class="hero__text">
+        <p class="hero__greeting">hi, i'm</p>
+        <h1 class="hero__name">mack!<span class="accent">.</span></h1>
+        <p class="hero__headline">Aspiring Front-End Developer &amp; UI/UX Designer<br>
+          <span class="hero__headline-alt">DJ/Filmmaker/Photographer</span></p>
+        <p class="hero__sub">cs/des @ uic, chicago, il</p>
+        <div class="hero__cta">
+          <a href="#experience" class="btn btn--primary">more about me!</a>
+          <a href="#contact" class="btn btn--outline">lets connect!</a>
+        </div>
+        </div>
+        <figure class="hero__print">
+          <img src="img/des255_riso_mid.jpg" alt="Risograph print of a bubble sort midway through, blue and pink circles on cream paper" width="850" height="1100">
+          <figcaption>bubble sort &#8594; riso, DES255</figcaption>
+        </figure>
       </div>
-    </div>
-    <div class="hero__scroll-indicator">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ ABOUT ============ -->
-  <section class="section about" id="about">
-    <div class="container">
-      <h2 class="section__title reveal">about <span class="accent">me</span></h2>
-      <div class="about__grid">
-        <div class="about__text reveal">
-          <p>i'm a college junior at the <strong>University of Illinois Chicago</strong> passionate about technology,
-            design, and media creation,
-            combining my love for computer science and design to create meaningful
-            digital experiences.</p>
-          <p>Through roles in web design, tech support, radio blogging, and cultural organizations, I've built a diverse
-            skillset spanning front-end development, creative media, and leadership. I'm a <strong>UIC Chancellor
-              Scholarship</strong> recipient and <strong>Honors College of Engineering</strong> member, always looking
-            for ways to merge code with creativity. also, i made the dean's list for 2 different colleges last semester!
-          </p>
-        </div>
-        <div class="about__stats reveal">
-          <div class="stat-card glass">
-            <span class="stat-card__number">3.8</span>
-            <span class="stat-card__label">College GPA</span>
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title">about me</h2>
+        </header>
+        <div class="section__body">
+        <div class="about__grid">
+          <div class="about__text">
+            <p>i'm a college junior at the <strong>University of Illinois Chicago</strong> passionate about technology,
+              design, and media creation,
+              combining my love for computer science and design to create meaningful
+              digital experiences.</p>
+            <p>Through roles in web design, tech support, radio blogging, and cultural organizations, I've built a
+              diverse
+              skillset spanning front-end development, creative media, and leadership. I'm a <strong>UIC Chancellor
+                Scholarship</strong> recipient and <strong>Honors College of Engineering</strong> member, always
+              looking
+              for ways to merge code with creativity. also, i made the dean's list for 2 different colleges last
+              semester!
+            </p>
           </div>
-          <div class="stat-card glass">
-            <span class="stat-card__number">5+</span>
-            <span class="stat-card__label">Roles</span>
-          </div>
-          <div class="stat-card glass">
-            <span class="stat-card__number">4+</span>
-            <span class="stat-card__label">Years Web Dev</span>
-          </div>
-          <div class="stat-card glass">
-            <span class="stat-card__number">BS</span>
-            <span class="stat-card__label">CS + Design</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ EXPERIENCE ============ -->
-  <section class="section experience" id="experience">
-    <div class="container">
-      <h2 class="section__title reveal"> <span class="accent">experience</span></h2>
-      <div class="timeline">
-
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__card glass">
-            <span class="timeline__date">Jan 2026 – Present</span>
-            <h3 class="timeline__role">Historian</h3>
-            <p class="timeline__company">Filipinos In Alliance (FIA) · Chicago, IL</p>
-            <p class="timeline__desc">Supports documentation of organizational history through high-volume photography
-              and videography. Manages the FIArts subgroup, creates monthly video recaps and digital graphics, and
-              drives member engagement.</p>
-          </div>
-        </div>
-
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__card glass">
-            <span class="timeline__date">May 2025 – Present</span>
-            <h3 class="timeline__role">Retail Sales Associate</h3>
-            <p class="timeline__company">Best Buy · Norridge, IL</p>
-            <p class="timeline__desc">Provides expert product consultations, manages omnichannel shopping
-              (online/curbside), and handles financing and loyalty programs.</p>
-          </div>
-        </div>
-
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__card glass">
-            <span class="timeline__date">Mar 2021 – Present</span>
-            <h3 class="timeline__role">Website Manager</h3>
-            <p class="timeline__company">Self-employed · Chicago, IL</p>
-            <p class="timeline__desc">Focuses on front-end development (WordPress, HubSpot), client consultations,
-              project planning, Internet security, and coding (HTML, CSS, JavaScript, jQuery). Specializes in
-              mobile-friendly transitions for legacy websites.</p>
-          </div>
-        </div>
-
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__card glass">
-            <span class="timeline__date">Jun 2022 – Present</span>
-            <h3 class="timeline__role">Lead Summer Tech Department Intern</h3>
-            <p class="timeline__company">Skokie School District 73.5 · Skokie, IL</p>
-            <p class="timeline__desc">Managed device sanitation, live-streaming for school board meetings, inventory
-              management, and helped transition phone services to cloud-based Zoom Phone.</p>
-          </div>
-        </div>
-
-        <div class="timeline__item reveal">
-          <div class="timeline__dot"></div>
-          <div class="timeline__card glass">
-            <span class="timeline__date">Sep 2025 – Mar 2026</span>
-            <h3 class="timeline__role">Blogger</h3>
-            <p class="timeline__company">UIC Radio · Chicago, IL</p>
-            <p class="timeline__desc">Authored weekly long-form music features, deep-dive album reviews, and artist
-              spotlights. Collaborated with promotions teams to align content with on-air programming.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ EDUCATION ============ -->
-  <section class="section education" id="education">
-    <div class="container">
-      <h2 class="section__title reveal">education</h2>
-      <div class="edu__grid">
-
-        <div class="edu__card glass reveal">
-          <div class="edu__icon">🎓</div>
-          <h3 class="edu__school">University of Illinois Chicago</h3>
-          <p class="edu__degree">BS in Computer Science + Design · Minor in International Business</p>
-          <p class="edu__date">May 2025 – Dec 2028 (Expected)</p>
-          <p class="edu__detail">Honors College, College of Engineering · Chancellor Scholarship Recipient · Fall 2025
-            CADA/COE Dean's List</p>
-          <div class="edu__activities">
-            <span class="tag">FIA</span>
-            <span class="tag">VSA</span>
-            <span class="tag">UIC Radio</span>
-            <span class="tag">Couture Du Jour</span>
-            <span class="tag">Music Producers Collective</span>
-          </div>
-        </div>
-
-        <div class="edu__card glass reveal">
-          <div class="edu__icon">🏫</div>
-          <h3 class="edu__school">Northside College Prep</h3>
-          <p class="edu__degree">High School Diploma</p>
-          <p class="edu__date">Sep 2021 – Jun 2025</p>
-          <p class="edu__detail">GPA: 4.85</p>
-          <div class="edu__activities">
-            <span class="tag">Film Club</span>
-            <span class="tag">Esports</span>
-            <span class="tag">CS Honor Society</span>
-            <span class="tag">Japanese Honor Society</span>
-            <span class="tag">Polish Club</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SKILLS ============ -->
-  <section class="section skills" id="skills">
-    <div class="container">
-      <h2 class="section__title reveal">skills</h2>
-      <div class="skills__categories">
-
-        <div class="skills__group reveal">
-          <h3 class="skills__group-title"><span class="accent">&lt;</span> Technical <span class="accent">/&gt;</span>
-          </h3>
-          <div class="skills__tags">
-            <span class="skill-tag">HTML</span>
-            <span class="skill-tag">CSS</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">jQuery</span>
-            <span class="skill-tag">Front-End Dev</span>
-            <span class="skill-tag">Website Building</span>
-            <span class="skill-tag">Mobile Web Design</span>
-            <span class="skill-tag">Software Development</span>
-            <span class="skill-tag">Tech Support</span>
-            <span class="skill-tag">Troubleshooting</span>
-            <span class="skill-tag">Graphic Design</span>
-            <span class="skill-tag">Video Editing</span>
-          </div>
-        </div>
-
-        <div class="skills__group reveal">
-          <h3 class="skills__group-title"><span class="accent">✦</span> Creative</h3>
-          <div class="skills__tags">
-            <span class="skill-tag">Photography</span>
-            <span class="skill-tag">Videography</span>
-            <span class="skill-tag">Concept Art</span>
-            <span class="skill-tag">Page Layout</span>
-            <span class="skill-tag">Video Creation</span>
-            <span class="skill-tag">Journalism</span>
-            <span class="skill-tag">Social Media Design</span>
-          </div>
-        </div>
-
-        <div class="skills__group reveal">
-          <h3 class="skills__group-title"><span class="accent">◆</span> Professional</h3>
-          <div class="skills__tags">
-            <span class="skill-tag">Customer Service</span>
-            <span class="skill-tag">Retail Sales</span>
-            <span class="skill-tag">Small Group Facilitation</span>
-            <span class="skill-tag">Multi-tasking</span>
-            <span class="skill-tag">Project Scheduling</span>
-            <span class="skill-tag">Presentation Skills</span>
-            <span class="skill-tag">Online Branding</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PROJECTS ============ -->
-  <section class="section projects" id="projects">
-    <div class="container">
-      <h2 class="section__title reveal"> <span class="accent">projects</span></h2>
-      <p class="projects__intro reveal">work i've done focusing on my future career path</p>
-      <div class="projects__grid">
-
-        <div class="project-card glass reveal">
-          <div class="project-card__preview" style="padding: 0; overflow-x: auto; display: flex; gap: 8px; -webkit-overflow-scrolling: touch;">
-            <img src="images/encore_upcoming.jpg" alt="Encore upcoming view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
-            <img src="images/encore_past.jpg" alt="Encore past view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
-            <img src="images/encore_stats.jpg" alt="Encore stats view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
-            <img src="images/encore_detail.jpg" alt="Encore detail view" loading="lazy" style="height: 280px; width: auto; border-radius: var(--radius-md); flex-shrink: 0;">
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">Encore (iOS App)</h3>
-            <p class="project-card__desc">A native iOS 17 app built in Swift/SwiftUI to track and log upcoming/past concerts. Auto-fetches events via Bandsintown/Ticketmaster and setlists via Setlist.fm APIs, utilizing SwiftData for persistent storage.</p>
-            <div class="project-card__tags">
-              <span class="tag">SwiftUI</span>
-              <span class="tag">REST APIs</span>
-              <span class="tag">SwiftData</span>
+          <dl class="about__stats">
+            <div class="stat">
+              <dt class="stat__label">College GPA</dt>
+              <dd class="stat__number">3.8</dd>
             </div>
-            <a href="https://github.com/macc14/setlistnative" target="_blank" class="btn btn--outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-              View Repository
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card glass reveal">
-          <div class="project-card__preview">
-            <div class="project-card__placeholder" style="font-size: 3rem;"><span>🏠</span></div>
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">Smart Home Integrations</h3>
-            <p class="project-card__desc">Custom home automation setups integrating various IoT devices into a unified smart ecosystem. Focus on scripting, local networking, and seamless user experience.</p>
-            <div class="project-card__tags">
-              <span class="tag">IoT</span>
-              <span class="tag">Home Automation</span>
-              <span class="tag">Networking</span>
+            <div class="stat">
+              <dt class="stat__label">Roles</dt>
+              <dd class="stat__number">5+</dd>
             </div>
-          </div>
-        </div>
-        <div class="project-card glass reveal">
-          <div class="project-card__preview">
-            <div class="project-card__placeholder"><span>🌐</span></div>
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">this website!</h3>
-            <p class="project-card__desc">i built this using html, css, and js, and it feels modern and snappy!</p>
-            <div class="project-card__tags">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">UI/UX</span>
+            <div class="stat">
+              <dt class="stat__label">Years Web Dev</dt>
+              <dd class="stat__number">4+</dd>
             </div>
-          </div>
+            <div class="stat">
+              <dt class="stat__label">CS + Design</dt>
+              <dd class="stat__number">BS</dd>
+            </div>
+          </dl>
         </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="project-card project-card--gallery glass reveal">
-          <div class="project-card__preview project-card__preview--gallery">
-            <div class="photo-gallery" id="desPhotoGallery">
-              <div class="photo-gallery__item" data-index="0">
-                <img src="images/des160/p1_architecture.jpg" alt="Light & Shadow – beach coastline study" loading="lazy">
-                <div class="photo-gallery__overlay">
-                  <span class="photo-gallery__label">Light & Shadow</span>
+    <!-- ============ EXPERIENCE ============ -->
+    <section class="section experience" id="experience">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title">experience</h2>
+        </header>
+        <div class="section__body">
+        <ol class="timeline">
+
+          <li class="timeline__item">
+            <span class="timeline__date">Jan 2026 - Present</span>
+            <div class="timeline__body">
+              <h3 class="timeline__role">Historian</h3>
+              <p class="timeline__company">Filipinos In Alliance (FIA), Chicago, IL</p>
+              <p class="timeline__desc">Supports documentation of organizational history through high-volume
+                photography
+                and videography. Manages the FIArts subgroup, creates monthly video recaps and digital graphics, and
+                drives member engagement.</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__date">May 2025 - Present</span>
+            <div class="timeline__body">
+              <h3 class="timeline__role">Retail Sales Associate</h3>
+              <p class="timeline__company">Best Buy, Norridge, IL</p>
+              <p class="timeline__desc">Provides expert product consultations, manages omnichannel shopping
+                (online/curbside), and handles financing and loyalty programs.</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__date">Mar 2021 - Present</span>
+            <div class="timeline__body">
+              <h3 class="timeline__role">Website Manager</h3>
+              <p class="timeline__company">Self-employed, Chicago, IL</p>
+              <p class="timeline__desc">Focuses on front-end development (WordPress, HubSpot), client consultations,
+                project planning, Internet security, and coding (HTML, CSS, JavaScript, jQuery). Specializes in
+                mobile-friendly transitions for legacy websites.</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__date">Jun 2022 - Present</span>
+            <div class="timeline__body">
+              <h3 class="timeline__role">Lead Summer Tech Department Intern</h3>
+              <p class="timeline__company">Skokie School District 73.5, Skokie, IL</p>
+              <p class="timeline__desc">Managed device sanitation, live-streaming for school board meetings,
+                inventory
+                management, and helped transition phone services to cloud-based Zoom Phone.</p>
+            </div>
+          </li>
+
+          <li class="timeline__item">
+            <span class="timeline__date">Sep 2025 - Mar 2026</span>
+            <div class="timeline__body">
+              <h3 class="timeline__role">Blogger</h3>
+              <p class="timeline__company">UIC Radio, Chicago, IL</p>
+              <p class="timeline__desc">Authored weekly long-form music features, deep-dive album reviews, and artist
+                spotlights. Collaborated with promotions teams to align content with on-air programming.</p>
+            </div>
+          </li>
+
+        </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section class="section education" id="education">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title">education</h2>
+        </header>
+        <div class="section__body">
+        <div class="edu__grid">
+
+          <article class="edu__item">
+            <h3 class="edu__school">University of Illinois Chicago</h3>
+            <p class="edu__degree">BS in Computer Science + Design<br>Minor in International Business</p>
+            <p class="edu__date">May 2025 - Dec 2028 (Expected)</p>
+            <p class="edu__detail">Honors College, College of Engineering. Chancellor Scholarship Recipient. Fall
+              2025 CADA/COE Dean's List.</p>
+            <ul class="tag-list">
+              <li class="tag">FIA</li>
+              <li class="tag">VSA</li>
+              <li class="tag">UIC Radio</li>
+              <li class="tag">Couture Du Jour</li>
+              <li class="tag">Music Producers Collective</li>
+            </ul>
+          </article>
+
+          <article class="edu__item">
+            <h3 class="edu__school">Northside College Prep</h3>
+            <p class="edu__degree">High School Diploma</p>
+            <p class="edu__date">Sep 2021 - Jun 2025</p>
+            <p class="edu__detail">GPA: 4.85</p>
+            <ul class="tag-list">
+              <li class="tag">Film Club</li>
+              <li class="tag">Esports</li>
+              <li class="tag">CS Honor Society</li>
+              <li class="tag">Japanese Honor Society</li>
+              <li class="tag">Polish Club</li>
+            </ul>
+          </article>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section skills" id="skills">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title">skills</h2>
+        </header>
+        <div class="section__body">
+        <div class="skills__groups">
+
+          <div class="skills__group">
+            <h3 class="skills__group-title">Technical</h3>
+            <ul class="tag-list">
+              <li class="tag">HTML</li>
+              <li class="tag">CSS</li>
+              <li class="tag">JavaScript</li>
+              <li class="tag">jQuery</li>
+              <li class="tag">Front-End Dev</li>
+              <li class="tag">Website Building</li>
+              <li class="tag">Mobile Web Design</li>
+              <li class="tag">Software Development</li>
+              <li class="tag">Tech Support</li>
+              <li class="tag">Troubleshooting</li>
+              <li class="tag">Graphic Design</li>
+              <li class="tag">Video Editing</li>
+            </ul>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__group-title">Creative</h3>
+            <ul class="tag-list">
+              <li class="tag">Photography</li>
+              <li class="tag">Videography</li>
+              <li class="tag">Concept Art</li>
+              <li class="tag">Page Layout</li>
+              <li class="tag">Video Creation</li>
+              <li class="tag">Journalism</li>
+              <li class="tag">Social Media Design</li>
+            </ul>
+          </div>
+
+          <div class="skills__group">
+            <h3 class="skills__group-title">Professional</h3>
+            <ul class="tag-list">
+              <li class="tag">Customer Service</li>
+              <li class="tag">Retail Sales</li>
+              <li class="tag">Small Group Facilitation</li>
+              <li class="tag">Multi-tasking</li>
+              <li class="tag">Project Scheduling</li>
+              <li class="tag">Presentation Skills</li>
+              <li class="tag">Online Branding</li>
+            </ul>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section projects" id="projects">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title">projects</h2>
+        <p class="section__intro">work i've done focusing on my future career path</p>
+        </header>
+        <div class="section__body">
+        <div class="projects__grid">
+
+          <article class="project project--wide project--encore">
+            <div class="project__screens">
+              <img src="img/encore_upcoming.jpg" alt="Encore upcoming view" loading="lazy" width="590" height="1200">
+              <img src="img/encore_past.jpg" alt="Encore past view" loading="lazy" width="590" height="1200">
+              <img src="img/encore_stats.jpg" alt="Encore stats view" loading="lazy" width="590" height="1200">
+              <img src="img/encore_detail.jpg" alt="Encore detail view" loading="lazy" width="599" height="1200">
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">Encore (iOS App)</h3>
+              <p class="project__desc">A native iOS 17 app built in Swift/SwiftUI to track and log upcoming/past
+                concerts. Auto-fetches events via Bandsintown/Ticketmaster and setlists via Setlist.fm APIs, utilizing
+                SwiftData for persistent storage.</p>
+              <ul class="tag-list">
+                <li class="tag">SwiftUI</li>
+                <li class="tag">REST APIs</li>
+                <li class="tag">SwiftData</li>
+              </ul>
+              <a href="https://github.com/macc14/setlistnative" target="_blank" rel="noopener" class="project__link">View
+                Repository <span aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
+          <article class="project project--half project--text">
+            <div class="project__info">
+              <h3 class="project__title">Smart Home Integrations</h3>
+              <p class="project__desc">Custom home automation setups integrating various IoT devices into a unified
+                smart ecosystem. Focus on scripting, local networking, and seamless user experience.</p>
+              <ul class="tag-list">
+                <li class="tag">IoT</li>
+                <li class="tag">Home Automation</li>
+                <li class="tag">Networking</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project project--half project--text">
+            <div class="project__info">
+              <h3 class="project__title">this website!</h3>
+              <p class="project__desc">i built this using html, css, and js, and it feels modern and snappy!</p>
+              <ul class="tag-list">
+                <li class="tag">HTML</li>
+                <li class="tag">CSS</li>
+                <li class="tag">JavaScript</li>
+                <li class="tag">UI/UX</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project project--wide project--gallery">
+            <div class="photo-gallery" id="desPhotoGallery" data-gallery="des160">
+              <figure class="photo-gallery__item" data-index="0">
+                <div class="photo-gallery__frame">
+                  <img src="img/p1_architecture.jpg" alt="Light & Shadow - beach coastline study" loading="lazy">
                 </div>
-              </div>
+                <figcaption class="photo-gallery__label">Light &amp; Shadow</figcaption>
+              </figure>
               <!-- Project 2: Horizontal Carousel -->
-              <div class="photo-gallery__item photo-gallery__item--carousel" data-index="1">
-                <div class="carousel" id="p2Carousel">
+              <figure class="photo-gallery__item photo-gallery__item--carousel" data-index="1">
+                <div class="photo-gallery__frame carousel" id="p2Carousel">
                   <div class="carousel__track">
                     <div class="carousel__slide carousel__slide--active">
-                      <img src="images/des160/p2_angle_1.jpeg" alt="Angle & Level – granite steps corner perspective" loading="lazy">
+                      <img src="img/p2_angle_1.jpg" alt="Angle & Level - granite steps corner perspective"
+                        loading="lazy">
                     </div>
                     <div class="carousel__slide">
-                      <img src="images/des160/p2_angle_2.jpeg" alt="Angle & Level – granite steps angular composition" loading="lazy">
+                      <img src="img/p2_angle_2.jpg" alt="Angle & Level - granite steps angular composition"
+                        loading="lazy">
                     </div>
                     <div class="carousel__slide">
-                      <img src="images/des160/p2_angle_3.jpeg" alt="Angle & Level – granite steps overhead view" loading="lazy">
+                      <img src="img/p2_angle_3.jpg" alt="Angle & Level - granite steps overhead view"
+                        loading="lazy">
                     </div>
                   </div>
-                  <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide">‹</button>
-                  <button class="carousel__btn carousel__btn--next" aria-label="Next slide">›</button>
+                  <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide">&#8249;</button>
+                  <button class="carousel__btn carousel__btn--next" aria-label="Next slide">&#8250;</button>
                   <div class="carousel__dots">
-                    <span class="carousel__dot carousel__dot--active" data-slide="0"></span>
-                    <span class="carousel__dot" data-slide="1"></span>
-                    <span class="carousel__dot" data-slide="2"></span>
+                    <button class="carousel__dot carousel__dot--active" data-slide="0" aria-label="Slide 1"></button>
+                    <button class="carousel__dot" data-slide="1" aria-label="Slide 2"></button>
+                    <button class="carousel__dot" data-slide="2" aria-label="Slide 3"></button>
                   </div>
                 </div>
-                <div class="photo-gallery__overlay">
-                  <span class="photo-gallery__label">Angle & Level</span>
+                <figcaption class="photo-gallery__label">Angle &amp; Level</figcaption>
+              </figure>
+              <figure class="photo-gallery__item" data-index="2">
+                <div class="photo-gallery__frame">
+                  <img src="img/p3_sculpture.jpg" alt="Form, Image & Type - paper form study on black" loading="lazy">
                 </div>
-              </div>
-              <div class="photo-gallery__item" data-index="2">
-                <img src="images/des160/p3_sculpture.JPG" alt="Form, Image & Type – paper form study on black" loading="lazy">
-                <div class="photo-gallery__overlay">
-                  <span class="photo-gallery__label">Form, Image & Type</span>
+                <figcaption class="photo-gallery__label">Form, Image &amp; Type</figcaption>
+              </figure>
+              <figure class="photo-gallery__item" data-index="3">
+                <div class="photo-gallery__frame">
+                  <img src="img/p4_still_life.jpg" alt="Studio & Location - kitchen objects composition"
+                    loading="lazy">
                 </div>
-              </div>
-              <div class="photo-gallery__item" data-index="3">
-                <img src="images/des160/p4_still_life.jpg" alt="Studio & Location – kitchen objects composition" loading="lazy">
-                <div class="photo-gallery__overlay">
-                  <span class="photo-gallery__label">Studio & Location</span>
-                </div>
-              </div>
+                <figcaption class="photo-gallery__label">Studio &amp; Location</figcaption>
+              </figure>
             </div>
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">design photography</h3>
-            <p class="project-card__desc">a collection of photos from my DES160 design photography course — exploring architecture, portraiture, form studies, and still life.</p>
-            <div class="project-card__tags">
-              <span class="tag">Photography</span>
-              <span class="tag">Design</span>
-              <span class="tag">DES160</span>
+            <div class="project__info">
+              <h3 class="project__title">design photography</h3>
+              <p class="project__desc">a collection of photos from my DES160 design photography course, exploring
+                architecture, portraiture, form studies, and still life.</p>
+              <ul class="tag-list">
+                <li class="tag">Photography</li>
+                <li class="tag">Design</li>
+                <li class="tag">DES160</li>
+              </ul>
             </div>
-          </div>
-        </div>
+          </article>
 
-        <!-- Lightbox -->
-        <div class="lightbox" id="lightbox">
-          <button class="lightbox__close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
-          <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
-          <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-          <img class="lightbox__img" id="lightboxImg" src="" alt="Enlarged photo">
-          <p class="lightbox__caption" id="lightboxCaption"></p>
-        </div>
-
-        <div class="project-card glass reveal">
-          <div class="project-card__preview" style="padding: 0;">
-            <img src="screenshot_genzrealty.png" alt="Gen Z Realty" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">Gen Z Realty</h3>
-            <p class="project-card__desc">A modern real estate brokerage website built on Squarespace. Designed to build trust with a younger demographic through bold imagery and clean UI.</p>
-            <div class="project-card__tags">
-              <span class="tag">Squarespace</span>
-              <span class="tag">Web Design</span>
-              <span class="tag">Real Estate</span>
+          <article class="project project--wide project--split">
+            <div class="project__info">
+              <h3 class="project__title">calendar studies</h3>
+              <p class="project__desc">my first project for DES208. i marked the days of a month as circles, squares,
+                and triangles on a grid, gave one day more weight (march 14, my birthday, and december 25, christmas),
+                then set the full month as a typographic calendar for march 2026. also pictured: an in-class monogram
+                exercise built from my initials.</p>
+              <ul class="tag-list">
+                <li class="tag">InDesign</li>
+                <li class="tag">Illustrator</li>
+                <li class="tag">Typography</li>
+                <li class="tag">DES208</li>
+              </ul>
             </div>
-            <a href="https://genzrealty.com" target="_blank" class="btn btn--outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-              Visit Site 
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="project-card glass reveal">
-          <div class="project-card__preview" style="padding: 0;">
-            <img src="screenshot_cityash.png" alt="City Ash" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">City Ash Soap</h3>
-            <p class="project-card__desc">E-commerce storefront on Shopify for a handcrafted soap and candle brand. Features a custom Chicago skyline illustration and clean product layouts.</p>
-            <div class="project-card__tags">
-              <span class="tag">Shopify</span>
-              <span class="tag">E-Commerce</span>
-              <span class="tag">Branding</span>
+            <div class="sheets" data-gallery="des208">
+              <figure class="sheet">
+                <img src="img/des208_birthday.jpg" alt="Calendar study: march as a grid of circles, march 14 enlarged"
+                  loading="lazy" width="395" height="512">
+                <figcaption>march 14</figcaption>
+              </figure>
+              <figure class="sheet">
+                <img src="img/des208_christmas.jpg"
+                  alt="Calendar study: december as a grid of triangles, december 25 enlarged" loading="lazy"
+                  width="395" height="512">
+                <figcaption>december 25</figcaption>
+              </figure>
+              <figure class="sheet">
+                <img src="img/des208_march.jpg" alt="Typographic calendar for march 2026" loading="lazy" width="396"
+                  height="512">
+                <figcaption>march 2026</figcaption>
+              </figure>
+              <figure class="sheet">
+                <img src="img/des208_monogram.png" alt="Monogram exercise built from the letters m, s, and w"
+                  loading="lazy" width="776" height="1200">
+                <figcaption>monogram</figcaption>
+              </figure>
             </div>
-            <a href="https://cityashsoap.com" target="_blank" class="btn btn--outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-              Visit Site 
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-          </div>
-        </div>
+          </article>
 
-        <div class="project-card glass reveal">
-          <div class="project-card__preview" style="padding: 0;">
-            <img src="screenshot_crystal.png" alt="Crystal Services" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md);">
-          </div>
-          <div class="project-card__info">
-            <h3 class="project-card__title">Crystal Services</h3>
-            <p class="project-card__desc">Landing page for a family-run commercial janitorial company. Built to convert leads with clear calls to action and a professional green brand palette.</p>
-            <div class="project-card__tags">
-              <span class="tag">GoDaddy</span>
-              <span class="tag">Landing Page</span>
-              <span class="tag">Service Business</span>
+          <article class="project project--wide project--split project--flip">
+            <div class="sheets sheets--riso" data-gallery="des255">
+              <figure class="sheet">
+                <img src="img/des255_riso_start.jpg"
+                  alt="Risograph print: shuffled blue and pink circles before the sort starts" loading="lazy"
+                  width="850" height="1100">
+                <figcaption>initial state</figcaption>
+              </figure>
+              <figure class="sheet">
+                <img src="img/des255_riso_sorted.jpg"
+                  alt="Risograph print: circles sorted from small blue to large pink" loading="lazy" width="850"
+                  height="1100">
+                <figcaption>sorted</figcaption>
+              </figure>
+              <figure class="sheet sheet--square">
+                <img src="img/des255_grid.jpg" alt="A 24 by 24 grid of red, orange, and green squares of varying size"
+                  loading="lazy" width="900" height="900">
+                <figcaption>hand-tracked grid</figcaption>
+              </figure>
             </div>
-            <a href="https://crystalservicesllc.com" target="_blank" class="btn btn--outline" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
-              Visit Site 
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-          </div>
+            <div class="project__info">
+              <h3 class="project__title">bubble sort &#8594; riso</h3>
+              <p class="project__desc">creative coding for DES255. a p5.js sketch runs bubble sort on a grid of
+                circles and captures 6 key moments as letter-size risograph prints in blue and fluorescent pink. the
+                grid sketch uses ml5 hand tracking: squares grow under your hand, and pinching and twisting shifts
+                their hue.</p>
+              <ul class="tag-list">
+                <li class="tag">p5.js</li>
+                <li class="tag">ml5.js</li>
+                <li class="tag">Risograph</li>
+                <li class="tag">DES255</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project project--third">
+            <div class="project__shot">
+              <img src="img/genzrealty.jpg" alt="Gen Z Realty" loading="lazy" width="1600" height="1000">
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">Gen Z Realty</h3>
+              <p class="project__desc">A modern real estate brokerage website built on Squarespace. Designed to build
+                trust with a younger demographic through bold imagery and clean UI.</p>
+              <ul class="tag-list">
+                <li class="tag">Squarespace</li>
+                <li class="tag">Web Design</li>
+                <li class="tag">Real Estate</li>
+              </ul>
+              <a href="https://genzrealty.com" target="_blank" rel="noopener" class="project__link">Visit Site <span
+                  aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
+          <article class="project project--third">
+            <div class="project__shot">
+              <img src="img/cityash.jpg" alt="City Ash" loading="lazy" width="1600" height="1000">
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">City Ash Soap</h3>
+              <p class="project__desc">E-commerce storefront on Shopify for a handcrafted soap and candle brand.
+                Features a custom Chicago skyline illustration and clean product layouts.</p>
+              <ul class="tag-list">
+                <li class="tag">Shopify</li>
+                <li class="tag">E-Commerce</li>
+                <li class="tag">Branding</li>
+              </ul>
+              <a href="https://cityashsoap.com" target="_blank" rel="noopener" class="project__link">Visit Site <span
+                  aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
+          <article class="project project--third">
+            <div class="project__shot">
+              <img src="img/crystal.jpg" alt="Crystal Services" loading="lazy" width="1600" height="1000">
+            </div>
+            <div class="project__info">
+              <h3 class="project__title">Crystal Services</h3>
+              <p class="project__desc">Landing page for a family-run commercial janitorial company. Built to convert
+                leads with clear calls to action and a professional green brand palette.</p>
+              <ul class="tag-list">
+                <li class="tag">GoDaddy</li>
+                <li class="tag">Landing Page</li>
+                <li class="tag">Service Business</li>
+              </ul>
+              <a href="https://crystalservicesllc.com" target="_blank" rel="noopener" class="project__link">Visit Site
+                <span aria-hidden="true">&#8599;</span></a>
+            </div>
+          </article>
+
         </div>
-
-
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ HOBBIES ============ -->
-  <section class="section hobbies" id="hobbies">
-    <div class="container">
-      <h2 class="section__title reveal">fun <span class="accent">stuff!</span></h2>
-      <p class="hobbies__intro reveal">whenever i have free time, this is what you'll see me doing!</p>
+    <!-- ============ HOBBIES ============ -->
+    <section class="section hobbies" id="hobbies">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title">fun stuff!</h2>
+        <p class="section__intro">whenever i have free time, this is what you'll see me doing!</p>
+        </header>
+        <div class="section__body">
 
-      <div class="hobbies__columns">
+        <div class="hobbies__columns">
 
-        <!-- DJ Sets -->
-        <div class="hobby-block reveal">
-          <div class="hobby-block__header">
-            <span class="hobby-block__icon">🎧</span>
-            <h3 class="hobby-block__title">djing, music</h3>
-          </div>
-          <p class="hobby-block__desc">i dj on the side, whatever i feel like playing! if you wanna book me, dm me on
-            instagram. my two latest sets are linked below, as well as my last.fm so you can see what i've been
-            listening to!</p>
-          <div class="hobby-block__grid">
-            <div class="hobby-embed glass">
-              <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
-                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/macc14/gamenight&color=%23ff6ec7&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
-                style="border:none; border-radius:14px;"></iframe>
+          <!-- DJ Sets -->
+          <div class="hobby">
+            <h3 class="hobby__title">djing, music</h3>
+            <p class="hobby__desc">i dj on the side, whatever i feel like playing! if you wanna book me, dm me on
+              instagram. my two latest sets are linked below, as well as my last.fm so you can see what i've been
+              listening to!</p>
+            <div class="hobby__embeds">
+              <iframe title="gamenight on SoundCloud" width="100%" height="166" scrolling="no" frameborder="no"
+                allow="autoplay" loading="lazy"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/macc14/gamenight&color=%23ec74b4&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+              <iframe title="nostalgiabait on SoundCloud" width="100%" height="166" scrolling="no" frameborder="no"
+                allow="autoplay" loading="lazy"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/macc14/nostalgiabait&color=%23ec74b4&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
             </div>
-            <div class="hobby-embed glass">
-              <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" loading="lazy"
-                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/macc14/nostalgiabait&color=%23ff6ec7&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"
-                style="border:none; border-radius:14px;"></iframe>
-            </div>
+            <a href="https://www.last.fm/user/macc14" target="_blank" rel="noopener" class="hobby__lastfm">
+              <img loading="lazy" src="https://lastfm-recently-played.vercel.app/api?user=macc14"
+                alt="Last.fm Recently Played" />
+            </a>
           </div>
-          <a href="https://www.last.fm/user/macc14" target="_blank" rel="noopener" class="magnetic"
-            style="display: block; width: 100%; margin-top: 16px;">
-            <img loading="lazy" src="https://lastfm-recently-played.vercel.app/api?user=macc14" height="auto"
-              width="100%" alt="Last.fm Recently Played"
-              style="border-radius: var(--radius-md); border: 1px solid var(--glass-border); display: block;" />
+
+          <!-- Cinematography / Videos -->
+          <div class="hobby">
+            <h3 class="hobby__title">videography</h3>
+            <p class="hobby__desc">i like recording vlogs and other types of videos, mainly been running a minivlog
+              series recently with my camera. i use a dji osmo pocket 3 to film and adobe premiere pro to edit!</p>
+            <p class="hobby__note">check out my latest videos on <a href="https://instagram.com/maccstuff"
+                target="_blank" rel="noopener">@maccstuff</a>!</p>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="container section__layout">
+        <header class="section__head">
+        <h2 class="section__title contact__title">let's connect!</h2>
+        </header>
+        <div class="section__body">
+        <p class="contact__text">if you're interested in working with me, or just want to chat, feel free to reach
+          out!</p>
+        <div class="contact__links">
+          <a href="https://linkedin.com/in/mackwozniak" target="_blank" rel="noopener" class="btn btn--primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            LinkedIn
+          </a>
+          <a href="mailto:mwozn9@uic.edu" class="btn btn--outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+            Email Me
+          </a>
+          <a href="https://instagram.com/maccstuff" target="_blank" rel="noopener" class="btn btn--outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+            </svg>
+            Instagram
           </a>
         </div>
-
-        <!-- Cinematography / Videos -->
-        <div class="hobby-block reveal">
-          <div class="hobby-block__header">
-            <span class="hobby-block__icon">🎬</span>
-            <h3 class="hobby-block__title">videography</h3>
-          </div>
-          <p class="hobby-block__desc">i like recording vlogs and other types of videos, mainly been running a minivlog
-            series recently with my camera. i use a dji osmo pocket 3 to film and adobe premiere pro to edit!</p>
-          </p>
-          <div class="hobby-block__grid">
-            <div class="hobby-embed glass">
-              <p style="text-align: center; padding: 2rem; color: var(--text-muted);">check out my latest videos on <a href="https://instagram.com/maccstuff" target="_blank" style="color: var(--accent);">@maccstuff</a>!</p>
-            </div>
-          </div>
         </div>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ CONTACT ============ -->
-  <section class="section contact" id="contact">
-    <div class="container">
-      <h2 class="section__title reveal">let's <span class="accent">connect!</span></h2>
-      <p class="contact__text reveal">if you're interested in working with me, or just want to chat, feel free to reach
-        out!</p>
-      <div class="contact__links reveal">
-        <a href="https://linkedin.com/in/mackwozniak" target="_blank" rel="noopener" class="btn btn--primary magnetic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-          </svg>
-          LinkedIn
-        </a>
-        <a href="mailto:mwozn9@uic.edu" class="btn btn--outline magnetic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="4" width="20" height="16" rx="2" />
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-          </svg>
-          Email Me
-        </a>
-        <a href="https://instagram.com/maccstuff" target="_blank" rel="noopener" class="btn btn--outline magnetic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-          </svg>
-          Instagram
-        </a>
-      </div>
-    </div>
-  </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close lightbox">&times;</button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="Enlarged photo">
+      <figcaption class="lightbox__caption" id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
