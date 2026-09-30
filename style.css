@@ -772,7 +772,18 @@ strong {
   border: 1px solid var(--rule-soft);
 }
 
-/* text-only projects */
+/* text-only projects, grouped in a tighter 2-up grid */
+.projects__minor {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--col-gap);
+}
+
+.projects__minor .project--half {
+  grid-column: auto;
+}
+
 .project--text {
   background: var(--paper-2);
   padding: clamp(24px, 3vw, 36px);
@@ -1249,6 +1260,10 @@ strong {
   .project--third,
   .project--third:last-child {
     grid-column: 1 / -1;
+  }
+
+  .projects__minor {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .project--third:last-child .project__shot {
