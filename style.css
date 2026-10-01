@@ -812,6 +812,30 @@ strong {
   grid-column: auto;
 }
 
+/* the smart home card carries a phone screenshot, so it runs the height of the other three */
+.projects__minor .project--feature {
+  grid-row: span 3;
+}
+
+.project__phone {
+  margin-top: 28px;
+}
+
+.project__phone figure {
+  width: min(100%, 260px);
+  cursor: zoom-in;
+}
+
+.project__phone img {
+  width: 100%;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s var(--ease);
+}
+
+.project__phone figure:hover img {
+  transform: translateY(-3px);
+}
+
 .project--text {
   background: var(--paper-2);
   padding: clamp(24px, 3vw, 36px);
@@ -1292,6 +1316,10 @@ strong {
 
   .projects__minor {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .projects__minor .project--feature {
+    grid-row: auto;
   }
 
   .project--third:last-child .project__shot {

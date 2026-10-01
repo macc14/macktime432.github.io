@@ -20,7 +20,7 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260930b">
+  <link rel="stylesheet" href="style.css?v=20261001">
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230b0b14%22/><text x=%2250%22 y=%2272%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2265%22 text-anchor=%22middle%22 fill=%22%23ff6ec7%22>m.</text></svg>">
 </head>
@@ -376,7 +376,7 @@
           </article>
 
           <div class="projects__minor">
-          <article class="project project--half project--text">
+          <article class="project project--half project--text project--feature">
             <div class="project__info">
               <h3 class="project__title">Smart Home Dashboard &amp; Home Lab</h3>
               <p class="project__desc">Hand-wired custom lighting on an ESP32 microcontroller running WLED, controlled over MQTT. Built a dashboard to control IoT devices; self-host services on Linux/TrueNAS behind Nginx and Cloudflare.</p>
@@ -387,6 +387,13 @@
                 <li class="tag">TrueNAS</li>
                 <li class="tag">Nginx</li>
               </ul>
+            </div>
+            <div class="project__phone" data-gallery="smarthome">
+              <figure>
+                <img src="img/smarthome_dashboard.jpg"
+                  alt="Smart home dashboard on a phone: lights, media, and house controls, room lighting, and door and motion sensors"
+                  loading="lazy" width="840" height="1600">
+              </figure>
             </div>
           </article>
 
