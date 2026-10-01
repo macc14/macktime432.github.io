@@ -397,21 +397,49 @@ strong {
 
 .hero__headline {
   margin-top: clamp(20px, 3vw, 32px);
-  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
   font-weight: 550;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-  max-width: 34ch;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  max-width: 30ch;
   text-wrap: balance;
 }
 
-.hero__headline-alt {
-  color: var(--ink-2);
-  font-weight: 450;
+/* the three areas, marked with the circle / square / triangle from the DES208 calendars */
+.hero__tracks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-top: 20px;
+}
+
+.hero__track {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.hero__track::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  background: var(--pink);
+}
+
+.hero__track--circle::before {
+  border-radius: 50%;
+}
+
+.hero__track--triangle::before {
+  width: 10px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 
 .hero__sub {
-  margin-top: 16px;
+  margin-top: 18px;
   font-family: var(--mono);
   font-size: 0.8125rem;
   color: var(--ink-2);

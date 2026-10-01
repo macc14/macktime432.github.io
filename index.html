@@ -4,8 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hi, i'm mack!</title>
-  <meta name="description" content="this is my professional-ish website!">
+  <title>Mack Wozniak</title>
+  <meta name="description"
+    content="Mack Wozniak, a computer science + design student at UIC building software, interfaces, and the systems behind them.">
+  <meta property="og:title" content="Mack Wozniak">
+  <meta property="og:description"
+    content="Computer science + design student at UIC. Software engineering, UI/UX and product design, IT and systems.">
+  <meta property="og:url" content="https://macc.lol/">
+  <meta property="og:image" content="https://macc.lol/img/des255_riso_mid.jpg">
   <link rel="preload" href="fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     // apply a saved theme before first paint so the page doesn't flash
@@ -14,7 +20,7 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { }
   </script>
-  <link rel="stylesheet" href="style.css?v=20260930">
+  <link rel="stylesheet" href="style.css?v=20260930b">
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230b0b14%22/><text x=%2250%22 y=%2272%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2265%22 text-anchor=%22middle%22 fill=%22%23ff6ec7%22>m.</text></svg>">
 </head>
@@ -54,11 +60,16 @@
         <div class="hero__text">
         <p class="hero__greeting">hi, i'm</p>
         <h1 class="hero__name">mack!<span class="accent">.</span></h1>
-        <p class="hero__headline">Aspiring Front-End Developer &amp; UI/UX Designer<br>
-          <span class="hero__headline-alt">DJ/Filmmaker/Photographer</span></p>
-        <p class="hero__sub">cs/des @ uic, chicago, il</p>
+        <p class="hero__headline">Computer science + design student building software, interfaces, and the
+          systems behind them.</p>
+        <ul class="hero__tracks" aria-label="Areas I work in">
+          <li class="hero__track hero__track--circle">Software Engineering</li>
+          <li class="hero__track hero__track--square">UI/UX &amp; Product Design</li>
+          <li class="hero__track hero__track--triangle">IT &amp; Systems</li>
+        </ul>
+        <p class="hero__sub">uic, chicago, il. also a dj, filmmaker, and photographer.</p>
         <div class="hero__cta">
-          <a href="#experience" class="btn btn--primary">more about me!</a>
+          <a href="#projects" class="btn btn--primary">see my work</a>
           <a href="#contact" class="btn btn--outline">lets connect!</a>
         </div>
         </div>
