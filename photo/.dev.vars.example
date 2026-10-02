@@ -1,0 +1,6 @@
+# Local-only secrets for `wrangler dev`. Copy to .dev.vars (gitignored) and fill in.
+# Production values are set with `npx wrangler secret put <NAME>`, never in a file in this repo.
+INVITE_CODE=
+ADMIN_CODE=
+# openssl rand -hex 32
+SESSION_SECRET=

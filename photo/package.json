@@ -1,0 +1,14 @@
+{
+  "name": "macc-photo",
+  "private": true,
+  "description": "macc.lol/photo: a shared photo roll for mack and friends, served by a Cloudflare Worker",
+  "scripts": {
+    "dev": "wrangler dev",
+    "db:local": "wrangler d1 execute macc-photo --local --file schema.sql",
+    "db:remote": "wrangler d1 execute macc-photo --remote --file schema.sql",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.146.0"
+  }
+}

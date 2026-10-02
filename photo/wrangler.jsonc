@@ -1,0 +1,19 @@
+// macc.lol/photo — one Worker serves the page, the API, and the images.
+// GitHub Pages still serves the rest of macc.lol; these routes take over /photo only.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "macc-photo",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-09-01",
+  "routes": [
+    { "pattern": "macc.lol/photo", "zone_name": "macc.lol" },
+    { "pattern": "macc.lol/photo/*", "zone_name": "macc.lol" }
+  ],
+  // public/photo/* is served as-is; anything without a matching file falls through to the Worker
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "macc-photo", "database_id": "df66e894-2ffa-4d88-bf4b-894ab28de090" }
+  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "macc-photo" }],
+  "observability": { "enabled": true }
+}
