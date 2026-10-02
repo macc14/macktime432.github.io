@@ -23,12 +23,10 @@ npm run db:local      # create the tables in the local D1
 npm run dev           # http://localhost:8787/photo/
 ```
 
-Local secrets live in `.dev.vars` (gitignored):
+Local secrets live in `.dev.vars`, which is gitignored. Copy the example file and fill it in. These values only apply to `wrangler dev` on your machine, so don't reuse the production codes:
 
-```
-INVITE_CODE=friends
-ADMIN_CODE=mack-admin
-SESSION_SECRET=<random hex>
+```bash
+cp .dev.vars.example .dev.vars
 ```
 
 Local photos and data are stored in `.wrangler/`. Delete that folder to start over.
