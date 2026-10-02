@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>photos · macc.lol</title>
+  <meta name="description" content="A photo roll from mack and friends.">
+  <meta property="og:title" content="photos · macc.lol">
+  <meta property="og:description" content="A photo roll from mack and friends.">
+  <meta property="og:url" content="https://macc.lol/photo/">
+  <meta property="og:image" content="https://macc.lol/img/des255_riso_mid.jpg">
+  <meta property="og:image:width" content="850">
+  <meta property="og:image:height" content="1100">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="/photo/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    // same theme key as the main site, applied before first paint
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
+    } catch (e) { }
+  </script>
+  <link rel="stylesheet" href="/photo/photo.css?v=20261002">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230b0b14%22/><text x=%2250%22 y=%2272%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2265%22 text-anchor=%22middle%22 fill=%22%23ff6ec7%22>m.</text></svg>">
+</head>
+
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">MW<span class="accent">.</span></a>
+      <a href="/photo/" class="nav__crumb">/ photo</a>
+      <div class="nav__actions">
+        <button class="btn btn--primary btn--sm" id="postBtn" type="button">post</button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+          <span class="theme-toggle__dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="intro">
+      <div class="container intro__frame">
+        <span class="crop crop--tl" aria-hidden="true"></span><span class="crop crop--tr" aria-hidden="true"></span>
+        <span class="crop crop--bl" aria-hidden="true"></span><span class="crop crop--br" aria-hidden="true"></span>
+        <div class="intro__text">
+          <p class="intro__kicker">mack + friends</p>
+          <h1 class="intro__title">photos<span class="accent">.</span></h1>
+          <p class="intro__sub">everything we point a camera at. tap a frame to open it, some of them come with a song.</p>
+        </div>
+        <dl class="intro__stats">
+          <div class="stat"><dt class="stat__label">frames</dt><dd class="stat__number" id="statFrames">&ndash;</dd></div>
+          <div class="stat"><dt class="stat__label">people</dt><dd class="stat__number" id="statPeople">&ndash;</dd></div>
+          <div class="stat"><dt class="stat__label">last post</dt><dd class="stat__number stat__number--date" id="statLatest">&ndash;</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="roll container" aria-label="Photos">
+      <div class="roll__head">
+        <span>the roll</span>
+        <span>newest first</span>
+      </div>
+      <div class="roll__grid" id="grid" aria-busy="true"></div>
+      <div class="roll__empty" id="empty" hidden>
+        <p class="roll__empty-title">no photos yet.</p>
+        <p class="roll__empty-sub">be the first one on the roll.</p>
+        <button class="btn btn--outline" type="button" data-action="post">post a photo</button>
+      </div>
+      <p class="roll__status" id="rollStatus" role="status"></p>
+      <div id="sentinel" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <a href="/" class="footer__logo">MW<span class="accent">.</span></a>
+      <p class="footer__copy">&copy; 2026 macc.lol</p>
+    </div>
+  </footer>
+
+  <!-- ============ VIEWER ============ -->
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="viewer__btn viewer__close" id="viewerClose" type="button" aria-label="Close">&times;</button>
+    <button class="viewer__btn viewer__nav viewer__nav--prev" id="viewerPrev" type="button" aria-label="Previous photo">&#8249;</button>
+    <button class="viewer__btn viewer__nav viewer__nav--next" id="viewerNext" type="button" aria-label="Next photo">&#8250;</button>
+    <figure class="viewer__figure">
+      <div class="viewer__stage">
+        <img class="viewer__img" id="viewerImg" alt="">
+      </div>
+      <figcaption class="viewer__info">
+        <p class="viewer__caption" id="viewerCaption"></p>
+        <p class="viewer__meta" id="viewerMeta"></p>
+        <div class="viewer__song" id="viewerSong" hidden>
+          <img class="viewer__art" id="viewerArt" alt="" width="40" height="40">
+          <div class="viewer__track">
+            <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="viewer__title" id="viewerSongTitle"></span>
+          </div>
+          <button class="viewer__pill" id="soundToggle" type="button" aria-pressed="true">sound on</button>
+          <a class="viewer__pill" id="songLink" target="_blank" rel="noopener">apple music &#8599;</a>
+        </div>
+        <div class="viewer__tools" id="viewerTools">
+          <button class="viewer__tool" type="button" id="shareBtn">share</button>
+          <button class="viewer__tool" type="button" id="editBtn" hidden>edit</button>
+          <button class="viewer__tool" type="button" id="deleteBtn" hidden>delete</button>
+          <span class="viewer__confirm" id="deleteConfirm" hidden>
+            delete this photo?
+            <button class="viewer__tool viewer__tool--danger" type="button" id="deleteYes">yes, delete</button>
+            <button class="viewer__tool" type="button" id="deleteNo">keep it</button>
+          </span>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ============ JOIN ============ -->
+  <dialog class="sheet" id="joinDialog" aria-labelledby="joinTitle">
+    <form class="sheet__form" id="joinForm" novalidate>
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="joinTitle">got the code?</h2>
+        <button class="sheet__x" type="button" data-close aria-label="Close">&times;</button>
+      </div>
+      <p class="sheet__intro">posting is for mack's friends. enter the invite code and the name you want on your photos.</p>
+      <label class="field">
+        <span class="field__label">invite code</span>
+        <input class="field__input" name="code" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+      </label>
+      <label class="field">
+        <span class="field__label">your name</span>
+        <input class="field__input" name="name" maxlength="24" autocomplete="nickname" required>
+      </label>
+      <p class="sheet__error" id="joinError" role="alert"></p>
+      <div class="sheet__actions">
+        <button class="btn btn--outline" type="button" data-close>cancel</button>
+        <button class="btn btn--primary" type="submit">join the roll</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ============ COMPOSER ============ -->
+  <dialog class="sheet sheet--wide" id="composer" aria-labelledby="composerTitle">
+    <form class="sheet__form" id="composerForm" novalidate>
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="composerTitle">new post</h2>
+        <button class="sheet__x" type="button" data-close aria-label="Close">&times;</button>
+      </div>
+      <p class="sheet__whoami" id="whoami"></p>
+
+      <label class="drop" id="drop">
+        <input class="drop__input" id="fileInput" type="file" accept="image/*" multiple>
+        <span class="drop__title">drop photos here or <u>choose files</u></span>
+        <span class="drop__hint">jpg, png, or straight from your camera roll. location data gets stripped.</span>
+      </label>
+
+      <ol class="cards" id="cards"></ol>
+
+      <p class="sheet__error" id="composerError" role="alert"></p>
+      <div class="sheet__actions">
+        <button class="btn btn--outline" type="button" data-close>cancel</button>
+        <button class="btn btn--primary" type="submit" id="composerSubmit" disabled>post</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="cardTemplate">
+    <li class="card">
+      <div class="card__thumb"><img alt=""></div>
+      <div class="card__fields">
+        <textarea class="field__input card__caption" rows="2" maxlength="500" placeholder="write a caption…"
+          aria-label="Caption"></textarea>
+        <div class="card__song">
+          <button class="chip" type="button" data-song-add>&#9834; add a song</button>
+          <span class="chip chip--song" data-song-chip hidden>
+            <button class="chip__body" type="button" data-song-edit></button>
+            <button class="chip__x" type="button" data-song-remove aria-label="Remove song">&times;</button>
+          </span>
+        </div>
+        <p class="card__status"></p>
+      </div>
+      <button class="card__remove" type="button" aria-label="Remove this photo">&times;</button>
+      <span class="card__progress" aria-hidden="true"></span>
+    </li>
+  </template>
+
+  <!-- ============ SONG PICKER ============ -->
+  <dialog class="sheet" id="songPicker" aria-labelledby="songTitle">
+    <div class="sheet__form">
+      <div class="sheet__head">
+        <h2 class="sheet__title" id="songTitle">add a song</h2>
+        <button class="sheet__x" type="button" data-close aria-label="Close">&times;</button>
+      </div>
+
+      <div class="picker__search" id="pickerSearch">
+        <label class="field">
+          <span class="field__label">search apple music</span>
+          <input class="field__input" id="songQuery" type="search" placeholder="song or artist" autocomplete="off">
+        </label>
+        <ul class="results" id="songResults" aria-live="polite"></ul>
+      </div>
+
+      <div class="picker__trim" id="pickerTrim" hidden>
+        <div class="trim__track">
+          <img class="trim__art" id="trimArt" alt="" width="64" height="64">
+          <div>
+            <p class="trim__title" id="trimTitle"></p>
+            <p class="trim__artist" id="trimArtist"></p>
+          </div>
+        </div>
+        <p class="field__label">drag to pick the 15 seconds that play</p>
+        <div class="wave" id="wave" role="slider" tabindex="0" aria-label="Snippet start" aria-valuemin="0"
+          aria-valuemax="15" aria-valuenow="0">
+          <div class="wave__bars" id="waveBars"></div>
+          <div class="wave__window" id="waveWindow"><span class="wave__head" id="waveHead"></span></div>
+        </div>
+        <div class="trim__row">
+          <button class="chip" type="button" id="trimPlay" aria-pressed="false">&#9654; play</button>
+          <span class="trim__time" id="trimTime">0:00 – 0:15</span>
+        </div>
+      </div>
+
+      <div class="sheet__actions">
+        <button class="btn btn--outline" type="button" id="pickerBack">cancel</button>
+        <button class="btn btn--primary" type="button" id="pickerUse" disabled>use this part</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/photo/photo.js?v=20261002" type="module"></script>
+</body>
+
+</html>
