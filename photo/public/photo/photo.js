@@ -63,6 +63,11 @@ function songLabel(song) {
   return song.artist ? `${song.title} — ${song.artist}` : song.title;
 }
 
+// previews stream through our own API so blockers and Firefox can't get in the way
+function previewSrc(appleUrl) {
+  return `${API}/preview?src=${encodeURIComponent(appleUrl)}`;
+}
+
 function bigArtwork(url, size) {
   return url ? url.replace(/\/\d+x\d+bb\./, `/${size}x${size}bb.`) : '';
 }
@@ -270,7 +275,7 @@ function playSnippet(preview, start, onTick = null) {
     a.currentTime = start;
   } else {
     a.dataset.preview = preview;
-    a.src = `${preview}#t=${start}`;
+    a.src = `${previewSrc(preview)}#t=${start}`;
   }
   a.volume = 0;
   // play() has to run inside the click for iOS, so it's never awaited first
@@ -1119,7 +1124,7 @@ queryInput.addEventListener('input', () => {
     resultsEl.replaceChildren(note('search for a song or an artist.'));
     return;
   }
-  // Apple allows roughly 20 searches a minute, so wait for a pause in typing
+  // wait for a pause in typing; the API caches each search for a day
   picker.searchTimer = setTimeout(() => searchSongs(query), 350);
 });
 
@@ -1128,11 +1133,7 @@ async function searchSongs(query) {
   picker.searchAbort = new AbortController();
   resultsEl.replaceChildren(note('searching…'));
   try {
-    const url = `https://itunes.apple.com/search?media=music&entity=song&limit=15&term=${encodeURIComponent(query)}`;
-    const response = await fetch(url, { signal: picker.searchAbort.signal });
-    if (!response.ok) throw new Error(String(response.status));
-    const data = await response.json();
-    const tracks = data.results.filter((r) => r.previewUrl).map(toTrack);
+    const { tracks } = await request(`/songs?q=${encodeURIComponent(query)}`, { signal: picker.searchAbort.signal });
     if (!tracks.length) {
       resultsEl.replaceChildren(note(`no songs found for “${query}”.`));
       return;
@@ -1142,17 +1143,6 @@ async function searchSongs(query) {
     if (error.name === 'AbortError') return;
     resultsEl.replaceChildren(note("couldn't reach apple music. try again in a moment."));
   }
-}
-
-function toTrack(r) {
-  return {
-    id: r.trackId,
-    title: r.trackName,
-    artist: r.artistName,
-    artwork: r.artworkUrl100 || null,
-    preview: r.previewUrl,
-    link: r.trackViewUrl || null,
-  };
 }
 
 function resultRow(track) {
@@ -1204,7 +1194,7 @@ async function loadWaveform(track, chooseStart) {
   picker.waveAbort?.abort();
   picker.waveAbort = new AbortController();
   try {
-    const response = await fetch(track.preview, { signal: picker.waveAbort.signal });
+    const response = await fetch(previewSrc(track.preview), { signal: picker.waveAbort.signal });
     const bytes = await response.arrayBuffer();
     const Ctx = window.AudioContext || window.webkitAudioContext;
     const ctx = new Ctx();

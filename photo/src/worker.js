@@ -60,6 +60,8 @@ async function api(request, env, url) {
   }
 
   if (route === '/photos' && method === 'GET') return listPhotos(env, url);
+  if (route === '/songs' && method === 'GET') return searchSongs(request, url);
+  if (route === '/preview' && method === 'GET') return songPreview(request, url);
   if (route === '/me' && method === 'GET') return json({ member: await currentMember(request, env) });
   if (route === '/join' && method === 'POST') return join(request, env);
   if (route === '/logout' && method === 'POST') {
@@ -214,6 +216,67 @@ async function ownedPhoto(env, member, id) {
   if (!row) throw new HttpError(404, 'that photo is gone');
   if (row.member_id !== member.id && !member.isAdmin) throw new HttpError(403, "that's not your photo");
   return row;
+}
+
+/* ---------- songs ----------
+   Search and previews go through here instead of the browser calling Apple directly:
+   content blockers and Firefox's tracking protection can stop requests to apple.com,
+   and Firefox won't play Apple's "audio/x-m4p" content type. */
+
+const PREVIEW_URL = /^https:\/\/audio-ssl\.itunes\.apple\.com\/itunes-assets\/[^\s"'<>?#]+$/;
+
+async function searchSongs(request, url) {
+  const term = (url.searchParams.get('q') || '').trim().slice(0, 100);
+  if (term.length < 2) return json({ tracks: [] });
+
+  // same search, same answer for a day; also keeps us well under Apple's rate limit
+  const cacheKey = new Request(`${url.origin}${BASE}/api/songs?q=${encodeURIComponent(term.toLowerCase())}`);
+  const cached = await caches.default.match(cacheKey);
+  if (cached) return cached;
+
+  const apple = new URL('https://itunes.apple.com/search');
+  apple.search = new URLSearchParams({ media: 'music', entity: 'song', limit: '15', term }).toString();
+  const upstream = await fetch(apple, { headers: { Accept: 'application/json' } });
+  if (!upstream.ok) throw new HttpError(502, "couldn't reach apple music. try again in a moment.");
+
+  const data = await upstream.json();
+  const tracks = (data.results || [])
+    .filter((r) => r.previewUrl && PREVIEW_URL.test(r.previewUrl))
+    .map((r) => ({
+      id: r.trackId,
+      title: r.trackName,
+      artist: r.artistName,
+      artwork: r.artworkUrl100 || null,
+      preview: r.previewUrl,
+      link: r.trackViewUrl || null,
+    }));
+
+  const response = json({ tracks }, 200, { 'Cache-Control': 'public, max-age=86400' });
+  await caches.default.put(cacheKey, response.clone());
+  return response;
+}
+
+async function songPreview(request, url) {
+  const src = url.searchParams.get('src') || '';
+  if (!PREVIEW_URL.test(src)) throw new HttpError(400, 'not an apple music preview');
+
+  const headers = new Headers();
+  const range = request.headers.get('Range');
+  if (range) headers.set('Range', range); // the <audio> element seeks with ranges
+  const upstream = await fetch(src, { headers, cf: { cacheEverything: true, cacheTtl: 60 * 60 * 24 * 30 } });
+  if (!upstream.ok) return new Response('preview unavailable', { status: upstream.status === 404 ? 404 : 502 });
+
+  const out = new Headers({
+    'Content-Type': 'audio/mp4',
+    'Cache-Control': 'public, max-age=604800',
+    'Accept-Ranges': 'bytes',
+    'X-Content-Type-Options': 'nosniff',
+  });
+  for (const name of ['Content-Length', 'Content-Range', 'ETag', 'Last-Modified']) {
+    const value = upstream.headers.get(name);
+    if (value) out.set(name, value);
+  }
+  return new Response(upstream.body, { status: upstream.status, headers: out });
 }
 
 /* ---------- images and share pages ---------- */
