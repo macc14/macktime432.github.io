@@ -1,7 +1,7 @@
 /* ============================================
    macc.lol/photo
    Same print system as the main site (style.css): paper and ink, one riso-pink
-   spot color, Archivo + Geist Mono, sharp corners, hairline rules, crop marks.
+   spot color, Archivo + Geist Mono, sharp corners, hairline rules.
    Tokens below are copied from style.css; keep the two in step.
    ============================================ */
 
@@ -139,6 +139,15 @@ button {
 
 [hidden] {
   display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 ::selection {
@@ -354,142 +363,12 @@ button {
 }
 
 /* ============================================
-   INTRO: the hero frame from the main site, smaller
-   ============================================ */
-.intro {
-  padding-top: calc(var(--nav-h) + clamp(20px, 3vw, 40px));
-}
-
-.intro__frame {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 32px clamp(32px, 6vw, 80px);
-  padding-block: clamp(36px, 5vw, 60px);
-}
-
-.crop {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 0 solid var(--ink);
-}
-
-.crop--tl {
-  top: 0;
-  left: var(--gutter);
-  border-top-width: 1.5px;
-  border-left-width: 1.5px;
-}
-
-.crop--tr {
-  top: 0;
-  right: var(--gutter);
-  border-top-width: 1.5px;
-  border-right-width: 1.5px;
-}
-
-.crop--bl {
-  bottom: 0;
-  left: var(--gutter);
-  border-bottom-width: 1.5px;
-  border-left-width: 1.5px;
-}
-
-.crop--br {
-  bottom: 0;
-  right: var(--gutter);
-  border-bottom-width: 1.5px;
-  border-right-width: 1.5px;
-}
-
-.intro__text {
-  padding-left: clamp(0px, 3vw, 40px);
-  min-width: 0;
-}
-
-.intro__kicker {
-  font-family: var(--mono);
-  font-size: 0.9375rem;
-  color: var(--ink-2);
-}
-
-.intro__title {
-  font-size: clamp(4rem, 12vw, 9rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.055em;
-  margin-top: 8px;
-  margin-left: -0.04em;
-}
-
-.intro__sub {
-  margin-top: clamp(16px, 2.4vw, 24px);
-  max-width: 38ch;
-  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  text-wrap: pretty;
-}
-
-.intro__stats {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  margin-right: clamp(0px, 3vw, 40px);
-  border-top: 1px solid var(--rule-soft);
-}
-
-.stat {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  gap: 4px;
-  padding: 16px 20px 0 0;
-}
-
-.stat + .stat {
-  padding-left: 20px;
-  border-left: 1px solid var(--rule-soft);
-}
-
-.stat__number {
-  font-size: clamp(2rem, 3.4vw, 2.75rem);
-  font-weight: 750;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  font-variant-numeric: tabular-nums;
-}
-
-.stat__number--date {
-  text-transform: lowercase;
-}
-
-.stat__label {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--ink-2);
-}
-
-/* ============================================
    THE ROLL: masonry grid, columns filled shortest-first by photo.js
    ============================================ */
 .roll {
   scroll-margin-top: var(--nav-h);
-  padding-top: clamp(32px, 5vw, 56px);
+  padding-top: calc(var(--nav-h) + clamp(16px, 2vw, 24px));
   padding-bottom: clamp(56px, 8vw, 104px);
-}
-
-.roll__head {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 12px;
-  margin-bottom: 20px;
-  border-top: 1.5px solid var(--rule);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--ink-2);
 }
 
 .roll__grid {
@@ -1335,32 +1214,7 @@ textarea.field__input {
 /* ============================================
    RESPONSIVE
    ============================================ */
-@media (max-width: 900px) {
-  .intro__frame {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .intro__stats {
-    margin-right: 0;
-    padding-left: clamp(0px, 3vw, 40px);
-    border-top: 0;
-  }
-
-  .intro__stats .stat:first-child {
-    padding-top: 16px;
-  }
-}
-
 @media (max-width: 720px) {
-  .intro__frame {
-    padding-inline: 20px;
-  }
-
-  .intro__text,
-  .intro__stats {
-    padding-left: 0;
-  }
-
   .viewer {
     padding: 64px 12px 76px;
   }

@@ -46,7 +46,6 @@ function sendJson(path, method, data) {
 }
 
 const longDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-const shortDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' });
 const fmtDate = (ms) => longDate.format(ms).toLowerCase();
 const pad2 = (n) => String(n).padStart(2, '0');
 const clamp = (n, lo, hi) => Math.min(Math.max(n, lo), hi);
@@ -161,12 +160,9 @@ function refreshFrame(photo) {
   if (old) old.replaceWith(fresh);
 }
 
+// totals from the API; the viewer uses frames for its "03 / 42" counter
 function renderStats(stats) {
-  if (!stats) return;
-  state.stats = stats;
-  $('#statFrames').textContent = pad2(stats.frames || 0);
-  $('#statPeople').textContent = pad2(stats.people || 0);
-  $('#statLatest').textContent = stats.latest ? shortDate.format(stats.latest).toLowerCase() : '–';
+  if (stats) state.stats = stats;
 }
 
 function refreshStats() {
